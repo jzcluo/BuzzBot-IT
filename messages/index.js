@@ -16,6 +16,7 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var bot = new builder.UniversalBot(connector);
 bot.localePath(path.join(__dirname, './locale'));
 
+
 bot.dialog('/', function (session) {
     session.send('You said ' + session.message.text);
 });
