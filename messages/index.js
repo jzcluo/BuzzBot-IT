@@ -30,9 +30,10 @@ bot.dialog('/', function (session) {
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
-bot.dialog("Installation", InstallaionDialog).triggerAction({
+bot.dialog("GetUserInfo", InstallaionDialog.GetUserInfo).triggerAction({
     matches : 'Installation'
 });
+bot.dialog("InstallMatlab", InstallaionDialog.InstallMatlab);
 
 
 
