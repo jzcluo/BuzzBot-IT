@@ -42,7 +42,9 @@ module.exports.GetOSInfo = [
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
-            session.userData.os = results.response.entity;
+            console.log(results.response.entity);
+            session.userData.OS = results.response.entity;
+            session.save();
         }
         session.endDialog();
     }

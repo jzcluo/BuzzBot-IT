@@ -5,7 +5,12 @@ const path = require('path');
 require('dotenv').config();
 //These dialogs are difined within the dialogs folder
 const HiDialog = require('./dialogs/Hi');
+//Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
+const InstallMatlab = require('./dialogs/Installation/InstallMatlab');
+const InstallPython = require('./dialogs/Installation/InstallPython');
+const InstallJava = require('./dialogs/Installation/InstallJava');
+
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
 
@@ -53,7 +58,23 @@ bot.dialog('Hi', HiDialog).triggerAction({
 bot.dialog("GetUserInfo", InstallaionDialog.ExtractUserInfo).triggerAction({
     matches : 'Installation'
 });
-bot.dialog("InstallMatlab", InstallaionDialog.InstallMatlab);
+//installation steps for matlab
+bot.dialog("InstallMatlab", InstallMatlab.InstallMatlab);
+bot.dialog("InstallMatlab_Mac", InstallMatlab.InstallMatlab_Mac);
+bot.dialog("InstallMatlab_Windows", InstallMatlab.InstallMatlab_Windows);
+bot.dialog("InstallMatlab_Linux", InstallMatlab.InstallMatlab_Linux);
+
+//installation steps for python
+bot.dialog("InstallPython", InstallPython.InstallPython);
+bot.dialog("InstallPython_Mac", InstallPython.InstallPython_Mac);
+bot.dialog("InstallPython_Windows", InstallPython.InstallPython_Windows);
+bot.dialog("InstallPython_Linux", InstallPython.InstallPython_Linux);
+
+//installation steps for java
+bot.dialog("InstallJava", InstallJava.InstallJava);
+bot.dialog("InstallJava_Mac", InstallJava.InstallJava_Mac);
+bot.dialog("InstallJava_Windows", InstallJava.InstallJava_Windows);
+bot.dialog("InstallJava_Linux", InstallJava.InstallJava_Linux);
 
 //dialogs used to get user's information
 bot.dialog("GetSoftwareInfo", GetUserInfoDialog.GetSoftwareInfo);
