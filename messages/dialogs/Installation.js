@@ -30,8 +30,6 @@ module.exports.ExtractUserInfo = [
                 }
             }
         }
-        //next({resumed:builder.ResumeReason.reprompt});
-        //session.send(`Ok so you want to install ${session.userData.software} on ${session.userData.os}`);
         next();
     },
     (session, results, next) => {

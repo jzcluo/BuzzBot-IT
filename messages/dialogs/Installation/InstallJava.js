@@ -1,6 +1,7 @@
 const builder = require('botbuilder');
 const OS = require('../Enums.js').OPERATINGSYSTEM;
 
+//To start a dialog, look up the dialog name with the type of OS
 const InstallJavaDialogs = {
     [OS.Windows] : "InstallJava_Windows",
     [OS.MacOS] : "InstallJava_Mac",

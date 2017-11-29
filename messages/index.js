@@ -28,6 +28,8 @@ bot.localePath(path.join(__dirname, './locale'));
 
 const recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 recognizer.onEnabled((session, callback) => {
+    //session.conversationData.recognizerEnabled is a boolean flag
+    //that determines whether luis will be used
     if (typeof session.conversationData.recognizerEnabled === 'undefined') {
         callback(null, true);
     } else if (!session.conversationData.recognizerEnabled) {
