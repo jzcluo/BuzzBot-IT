@@ -1,9 +1,14 @@
 const builder = require('botbuilder');
 const GetClosestMatch = require('./Installation').GetClosestMatch;
+const SOFTWARE = require('./Enums').SOFTWARE;
+const OS = require('./Enums').OPERATINGSYSTEM;
 
 module.exports.GetSoftwareInfo = [
     (session, args, next) => {
-        let choiceList = ["Matlab", "Other"];
+        //list of software names
+        let choiceList = Object.keys(SOFTWARE);
+        //add in the option of other
+        choiceList.push("Other");
         builder.Prompts.choice(session, "What software are you installing?", choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
@@ -22,7 +27,7 @@ module.exports.GetSoftwareInfo = [
     (session, results) => {
         if (results.response) {
             //if user chooses to type in a name for software
-            session.conversationData.software = GetClosestMatch(["Matlab", "Python"], results.response);
+            session.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), results.response);
             session.save();
         }
         session.endDialog();
@@ -32,7 +37,7 @@ module.exports.GetSoftwareInfo = [
 
 module.exports.GetOSInfo = [
     (session, args, next) => {
-        let choiceList = ["MacOS", "Windows", "Linux"];
+        let choiceList = Object.keys(OS);
         builder.Prompts.choice(session, "What operating system are you using?", choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {

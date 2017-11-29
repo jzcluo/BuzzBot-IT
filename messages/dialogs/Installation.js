@@ -40,7 +40,7 @@ module.exports.ExtractUserInfo = [
         //depends on what software the user wants to Install
         //start corresponding tutorial
         switch (session.conversationData.software) {
-
+            
         }
     }
 ]
