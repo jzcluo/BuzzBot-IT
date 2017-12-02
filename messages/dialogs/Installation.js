@@ -33,15 +33,12 @@ module.exports.ExtractUserInfo = [
         next();
     },
     (session, results, next) => {
-        session.conversationData.recognizerEnabled = false;
-        session.save();
         if (typeof session.conversationData.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
         next();
     },
     (session, results, next) => {
-        session.conversationData.recognizerEnabled = true;
         session.save();
         session.send(`Let's help you install ${session.conversationData.software}`);
         //depends on what software the user wants to Install

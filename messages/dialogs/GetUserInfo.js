@@ -5,6 +5,11 @@ const OS = require('./Enums').OPERATINGSYSTEM;
 
 module.exports.GetSoftwareInfo = [
     (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
         //list of software names
         let choiceList = Object.keys(SOFTWARE);
         //add in the option of other
@@ -19,6 +24,8 @@ module.exports.GetSoftwareInfo = [
             } else {
                 //this should be a conversation data as it could be a different software in next interaction
                 session.conversationData.software = results.response.entity;
+                //reenable luis recognizer
+                session.conversationData.recognizerEnabled = true;
                 session.save();
                 session.endDialog();
             }
@@ -28,6 +35,8 @@ module.exports.GetSoftwareInfo = [
         if (results.response) {
             //if user chooses to type in a name for software
             session.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), results.response);
+            //reenable luis recognizer
+            session.conversationData.recognizerEnabled = true;
             session.save();
         }
         session.endDialog();
@@ -37,6 +46,12 @@ module.exports.GetSoftwareInfo = [
 
 module.exports.GetOSInfo = [
     (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(OS);
         builder.Prompts.choice(session, "What operating system are you using?", choiceList, {listStyle : builder.ListStyle.button});
     },
@@ -46,6 +61,8 @@ module.exports.GetOSInfo = [
             session.userData.OS = results.response.entity;
             session.save();
         }
+        session.conversationData.recognizerEnabled = true;
+        session.save();
         session.endDialog();
     }
 ]

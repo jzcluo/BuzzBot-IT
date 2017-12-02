@@ -15,7 +15,6 @@ module.exports.InstallMatlab = [
         if (typeof session.userData.OS === 'undefined') {
             session.beginDialog('GetOSInfo');
         } else {
-            //if already have userdata then start corresponding dialog
             next();
         }
     },
