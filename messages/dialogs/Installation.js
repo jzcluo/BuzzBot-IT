@@ -19,9 +19,11 @@ module.exports.ExtractUserInfo = [
             //args.intent.entities is an array of entities
             //save these instances for use later
             for (let entityObject of args.intent.entities) {
+                console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'Software':
                         session.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);                        session.save();
+                        session.save();
                         break;
                     case 'OS':
                         session.userData.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);

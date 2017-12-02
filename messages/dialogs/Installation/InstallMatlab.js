@@ -26,11 +26,6 @@ module.exports.InstallMatlab = [
 
 module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
-        session.send("Let's get started");
-        //get necessary information from the user
-        if (typeof session.userData.os === 'undefined') {
-            session.beginDialog('GetOSInfo');
-        }
         next();
     },
     (session, results, next) => {
@@ -84,6 +79,7 @@ module.exports.InstallMatlab_Windows = [
         }
     },
     (session, results, next) => {
+        console.log(session);
         if (results.response) {
             if (results.response.entity == "Continue") {
                 let card1 = new builder.HeroCard(session)

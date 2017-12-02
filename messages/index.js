@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
+
     require('dotenv').config();
-}
+
 
 //These dialogs are difined within the dialogs folder
 const HiDialog = require('./dialogs/Hi');
@@ -85,6 +85,18 @@ bot.dialog("InstallJava_Linux", InstallJava.InstallJava_Linux);
 bot.dialog("GetSoftwareInfo", GetUserInfoDialog.GetSoftwareInfo);
 bot.dialog("GetOSInfo", GetUserInfoDialog.GetOSInfo);
 
+
+//cancel dialog that returns to the dialog before current dialog
+bot.dialog("Cancel", [
+    (session) => {
+        //these two fields will be defined in every dialog
+        //when user wants to cancel their currentDialog
+        //start the last dialog
+        session.cancelDialog(0, 'Hi');//later the second parameter could be replaced with session.conversationData.lastDialog
+    }
+]).triggerAction({
+    matches : 'Cancel'
+});
 
 
 if (useEmulator) {
