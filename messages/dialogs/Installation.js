@@ -38,6 +38,7 @@ module.exports.ExtractUserInfo = [
         if (typeof session.conversationData.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
+        next();
     },
     (session, results, next) => {
         session.conversationData.recognizerEnabled = true;

@@ -5,6 +5,7 @@ const path = require('path');
 if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
 }
+
 //These dialogs are difined within the dialogs folder
 const HiDialog = require('./dialogs/Hi');
 //Installation related files
