@@ -12,6 +12,7 @@ const HiDialog = require('./dialogs/Hi');
 //Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
 const InstallMatlab = require('./dialogs/Installation/InstallMatlab');
+const InstallMatlabHelp = require('./dialogs/Installation/InstallMatlabHelp');
 const InstallPython = require('./dialogs/Installation/InstallPython');
 const InstallJava = require('./dialogs/Installation/InstallJava');
 
@@ -67,8 +68,16 @@ bot.dialog("GetUserInfo", InstallaionDialog.ExtractUserInfo).triggerAction({
 //installation steps for matlab
 bot.dialog("InstallMatlab", InstallMatlab.InstallMatlab);
 bot.dialog("InstallMatlab_Mac", InstallMatlab.InstallMatlab_Mac);
-bot.dialog("InstallMatlab_Windows", InstallMatlab.InstallMatlab_Windows);
+bot.dialog("InstallMatlab_Windows", InstallMatlab.InstallMatlab_Windows).beginDialogAction(
+    'InstallMatlabHelpAction', 'InstallMatlabHelp_Windows',
+    {
+        matches : 'Help'
+    }
+);
 bot.dialog("InstallMatlab_Linux", InstallMatlab.InstallMatlab_Linux);
+
+bot.dialog("InstallMatlabHelp_Windows", InstallMatlabHelp.InstallMatlabHelp_Windows);
+
 
 //installation steps for python
 bot.dialog("InstallPython", InstallPython.InstallPython);
@@ -90,6 +99,7 @@ bot.dialog("GetOSInfo", GetUserInfoDialog.GetOSInfo);
 //cancel dialog that returns to the dialog before current dialog
 bot.dialog("Cancel", [
     (session) => {
+        console.log(bot);
         //these two fields will be defined in every dialog
         //when user wants to cancel their currentDialog
         //start the last dialog
