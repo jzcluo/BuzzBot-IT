@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
+//if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-}
+//}
 
 
 //These dialogs are difined within the dialogs folder
@@ -68,6 +68,7 @@ bot.dialog("GetUserInfo", InstallaionDialog.ExtractUserInfo).triggerAction({
 //installation steps for matlab
 bot.dialog("InstallMatlab", InstallMatlab.InstallMatlab);
 bot.dialog("InstallMatlab_Mac", InstallMatlab.InstallMatlab_Mac);
+//begin dialog action https://docs.microsoft.com/en-us/bot-framework/nodejs/bot-builder-nodejs-dialog-actions
 bot.dialog("InstallMatlab_Windows", InstallMatlab.InstallMatlab_Windows).beginDialogAction(
     'InstallMatlabHelpAction', 'InstallMatlabHelp_Windows',
     {
