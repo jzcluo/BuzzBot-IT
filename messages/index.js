@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-//if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-//}
+}
 
 
 //These dialogs are difined within the dialogs folder
