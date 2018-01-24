@@ -6,30 +6,27 @@ if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
 }
 
+var useEmulator = (process.env.NODE_ENV == 'development');
 
-//These dialogs are difined within the dialogs folder
-const HiDialog = require('./dialogs/Hi');
-//Installation related files
-const InstallaionDialog = require('./dialogs/Installation');
-const InstallMatlab = require('./dialogs/Installation/InstallMatlab');
-const InstallMatlabHelp = require('./dialogs/Installation/InstallMatlabHelp');
-const InstallPython = require('./dialogs/Installation/InstallPython');
-const InstallJava = require('./dialogs/Installation/InstallJava');
-
-const GetUserInfoDialog = require('./dialogs/GetUserInfo');
-
-
-const useEmulator = (process.env.NODE_ENV == 'development');
-
-const connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
+var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
     appPassword: process.env['MicrosoftAppPassword'],
-    stateEndpoint: process.env['BotStateEndpoint'],
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-const bot = new builder.UniversalBot(connector);
+/*----------------------------------------------------------------------------------------
+* Bot Storage: This is a great spot to register the private state storage for your bot.
+* We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
+* For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
+* ---------------------------------------------------------------------------------------- */
+
+var tableName = 'botdata';
+var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+
+var bot = new builder.UniversalBot(connector);
 bot.localePath(path.join(__dirname, './locale'));
+bot.set('storage', tableStorage);
 
 const recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 recognizer.onEnabled((session, callback) => {
@@ -44,6 +41,30 @@ recognizer.onEnabled((session, callback) => {
     }
 });
 bot.recognizer(recognizer);
+
+
+if (useEmulator) {
+    var restify = require('restify');
+    var server = restify.createServer();
+    server.listen(3978, function() {
+        console.log('test bot endpont at http://localhost:3978/api/messages');
+    });
+    server.post('/api/messages', connector.listen());
+} else {
+    module.exports = connector.listen();
+}
+
+
+//These dialogs are difined within the dialogs folder
+const HiDialog = require('./dialogs/Hi');
+//Installation related files
+const InstallaionDialog = require('./dialogs/Installation');
+const InstallMatlab = require('./dialogs/Installation/InstallMatlab');
+const InstallMatlabHelp = require('./dialogs/Installation/InstallMatlabHelp');
+const InstallPython = require('./dialogs/Installation/InstallPython');
+const InstallJava = require('./dialogs/Installation/InstallJava');
+
+const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
 
 //called when a user is added to the conversationUpdate
@@ -108,15 +129,3 @@ bot.dialog("Cancel", [
 ]).triggerAction({
     matches : 'Cancel'
 });
-
-
-if (useEmulator) {
-    const restify = require('restify');
-    const server = restify.createServer();
-    server.listen(3978, function() {
-        console.log('test bot endpont at http://localhost:3978/api/messages');
-    });
-    server.post('/api/messages', connector.listen());
-} else {
-    module.exports = { default: connector.listen() }
-}
