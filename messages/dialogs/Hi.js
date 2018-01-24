@@ -2,7 +2,6 @@ const builder = require('botbuilder');
 
 module.exports = [
     (session, args, next) => {
-        console.log("am i please called");
         let thumbnailCard = new builder.ThumbnailCard(session)
                             .title('Hi Yellow Jacket')
                             .subtitle('How can I help you today? Select a choice or type down your problem')
