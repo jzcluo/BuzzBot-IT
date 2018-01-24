@@ -100,7 +100,6 @@ bot.dialog("GetOSInfo", GetUserInfoDialog.GetOSInfo);
 //cancel dialog that returns to the dialog before current dialog
 bot.dialog("Cancel", [
     (session) => {
-        console.log(bot);
         //these two fields will be defined in every dialog
         //when user wants to cancel their currentDialog
         //start the last dialog

@@ -38,7 +38,7 @@ module.exports.InstallMatlab_Windows = [
                         ]);
         let message = new builder.Message(session).addAttachment(card);
         session.send(message);
-        builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+        builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response) {
@@ -47,7 +47,7 @@ module.exports.InstallMatlab_Windows = [
                 next({resumed : builder.ResumeReason.back});
             } else
             */
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card = new builder.HeroCard(session)
                                 .text("Click on the “Get started now” link on the main page. You will be prompted to login. Login with you gatech credentials")
                                 .images([
@@ -55,13 +55,13 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card1 = new builder.HeroCard(session)
                                 .text("You will need to create a Mathworks account if you do not have one already.")
                                 .images([
@@ -74,14 +74,14 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         console.log(session);
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card1 = new builder.HeroCard(session)
                                 .text("Once logged in under your Mathworks account, download the installer for your platform.")
                                 .images([
@@ -94,13 +94,13 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card = new builder.HeroCard(session)
                                 .text("Make sure you select “Login with a MathWorks Account”. Then click “Next”.")
                                 .images([
@@ -108,13 +108,13 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card = new builder.HeroCard(session)
                                 .text("Read the license agreement. If you agree with the terms and conditions, click “Yes”. Then select “Next”.")
                                 .images([
@@ -122,13 +122,13 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 let card = new builder.HeroCard(session)
                                 .text("Input the credentials for your MathWorks account associated with your @gatech.edu email address.")
                                 .images([
@@ -136,19 +136,20 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 session.send("This step is important");
                 let card1 = new builder.HeroCard(session)
                                 .text("Next you will be asked whether you want to install or download MATLAB, then to confirm the type of the license to use.")
                                 .images([
                                     builder.CardImage.create(session, "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2017/09/Step9.png")
-                                ]);
+                                ])
+                                .buttons([]);
                 let card2 = new builder.HeroCard(session)
                                 .text("Make sure you are selecting License 621625 and Label Individual.")
                                 .images([
@@ -156,14 +157,14 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Finished and Continue"], {listStyle : builder.ListStyle.button});
+                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
             }
         }
     },
 
     (session, results, next) => {
         if (results.response) {
-            if (results.response.entity == "Finished and Continue") {
+            if (results.response.entity == "Next Step") {
                 session.endDialog("Press next on everything after and you should have matlab installed on your computer. Comeback if you have more problems.")
             }
         }
