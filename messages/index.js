@@ -70,15 +70,20 @@ const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 //called when a user is added to the conversationUpdate
 //https://stackoverflow.com/questions/42353337/is-it-possible-to-detect-when-a-user-opens-the-chat-window-on-facebook/42353957
 bot.on('conversationUpdate', (message) => {
+    console.log("conversation updated")
     console.log(message.membersAdded);
     if (message.membersAdded && message.membersAdded[0].id === message.address.bot.id) {
+        console.log("begining dialog HI")
         bot.beginDialog(message.address, 'Hi');
     }
 });
 
-bot.dialog('/', function (session) {
-    session.send('You said ' + session.message.text);
-});
+bot.dialog("/", [
+    (session, args) => {
+        console.log("default convo");
+        session.endDialog("heeeeeehe");
+    }
+]);
 
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
