@@ -16,3 +16,14 @@ module.exports.VERSION = {
     R2017a : "R2017a",
     R2017b : "R2017b"
 }
+
+module.exports.LICENSEACTION = {
+    Activation : "Activation",
+    Deactivation : "Deactivation",
+    Reactivation : "Reactivation"
+}
+
+module.exports.LICENSETYPE = {
+    Network : "Network",
+    Individual : "Individual"
+}

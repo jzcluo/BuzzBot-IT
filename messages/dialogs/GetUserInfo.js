@@ -1,8 +1,10 @@
 const builder = require('botbuilder');
-const GetClosestMatch = require('./Installation').GetClosestMatch;
+const GetClosestMatch = require('./Util').GetClosestMatch;
 const SOFTWARE = require('./Enums').SOFTWARE;
 const OS = require('./Enums').OPERATINGSYSTEM;
 const VERSION = require('./Enums').VERSION;
+const LICENSETYPE = require('./Enums').LICENSETYPE;
+const LICENSEACTION = require('./Enums').LICENSEACTION;
 
 module.exports.GetSoftwareInfo = [
     (session, args, next) => {
@@ -82,7 +84,76 @@ module.exports.GetVersionInfo = [
     (session, results, next) => {
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
-            session.conversationData.VERSION = results.response.entity;
+            session.conversationData["version"] = results.response.entity;
+            session.save();
+        }
+        session.conversationData.recognizerEnabled = true;
+        session.save();
+        session.endDialog();
+    }
+]
+
+module.exports.GetLicenseType = [
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        let choiceList = Object.keys(LICENSETYPE);
+        builder.Prompts.choice(session, "What type of license are you trying to get?", choiceList, {listStyle : builder.ListStyle.button});
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            console.log(results.response.entity);
+            session.conversationData.LicenseType = results.response.entity;
+            session.save();
+        }
+        session.conversationData.recognizerEnabled = true;
+        session.save();
+        session.endDialog();
+    }
+]
+
+module.exports.GetLicenseAction = [
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        let choiceList = Object.keys(LICENSEACTION);
+        builder.Prompts.choice(session, "Which of the following are you tryign to do?", choiceList, {listStyle : builder.ListStyle.button});
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            console.log(results.response.entity);
+            session.conversationData.LicenseAction = results.response.entity;
+            session.save();
+        }
+        session.conversationData.recognizerEnabled = true;
+        session.save();
+        session.endDialog();
+    }
+]
+
+module.exports.WhetherLicenseExpired = [
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        let choiceList = ["Yes", "No"];
+        builder.Prompts.choice(session, "If your license currently expired?", choiceList, {listStyle : builder.ListStyle.button});
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            console.log(results.response.entity);
+            session.conversationData.LicenseExpired = results.response.entity;
             session.save();
         }
         session.conversationData.recognizerEnabled = true;

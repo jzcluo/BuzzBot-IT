@@ -70,6 +70,15 @@ const InstallMatlabHelp = require('./dialogs/Installation/InstallMatlabHelp');
 const InstallPython = require('./dialogs/Installation/InstallPython');
 const InstallJava = require('./dialogs/Installation/InstallJava');
 
+//Licensing related files
+const LicensingDialog = require('./dialogs/License');
+const NetworkLicense = require('./dialogs/License/NetworkLicense');
+const ActivateLicense = require('./dialogs/License/IndividualLicense/ActivateLicense');
+const ReactivateExpiredLicense = require('./dialogs/License/IndividualLicense/ReactivateExpiredLicense');
+const ReactivateExpiringLicense = require('./dialogs/License/IndividualLicense/ReactivateExpiringLicense');
+const DeactivateLicense = require('./dialogs/License/IndividualLicense/DeactivateLicense');
+const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWorksAccount');
+
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
 
@@ -97,6 +106,22 @@ bot.dialog('Hi', HiDialog).triggerAction({
 bot.dialog("Installation", InstallaionDialog.InstallationDialog).triggerAction({
     matches : 'Installation'
 });
+bot.dialog("Licensing", LicensingDialog.LicensingDialog).triggerAction({
+    matches : 'Licensing'
+});
+
+//licensing steps for network license
+bot.dialog("GetNetworkLicense", NetworkLicense.GetNetworkLicense);
+bot.dialog("ActivateLicense", ActivateLicense.ActivateLicense);
+bot.dialog("DeactivateLicense", DeactivateLicense.DeactivateLicense);
+bot.dialog("ReactivateExpiredLicense", ReactivateExpiredLicense.ReactivateExpiredLicense);
+bot.dialog("ReactivateExpiringLicense", ReactivateExpiringLicense.ReactivateExpiringLicense);
+
+//steps for creating mathworks account
+bot.dialog("CreateAccount", CreateAccount.CreateAccount).triggerAction({
+    matches : "CreateAccount"
+});
+
 
 //installation steps for matlab
 bot.dialog("InstallMatlab", InstallMatlab.InstallMatlab);
@@ -129,6 +154,9 @@ bot.dialog("InstallJava_Linux", InstallJava.InstallJava_Linux);
 bot.dialog("GetSoftwareInfo", GetUserInfoDialog.GetSoftwareInfo);
 bot.dialog("GetOSInfo", GetUserInfoDialog.GetOSInfo);
 bot.dialog("GetVersionInfo", GetUserInfoDialog.GetVersionInfo);
+bot.dialog("GetLicenseType", GetUserInfoDialog.GetLicenseType);
+bot.dialog("GetLicenseAction", GetUserInfoDialog.GetLicenseAction);
+bot.dialog("WhetherLicenseExpired", GetUserInfoDialog.WhetherLicenseExpired);
 
 
 //cancel dialog that returns to the dialog before current dialog

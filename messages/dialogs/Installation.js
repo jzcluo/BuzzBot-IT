@@ -41,10 +41,10 @@ module.exports.InstallationDialog = [
         if (typeof session.conversationData.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
-        if (typeof session.conversationData.software === 'undefined') {
+        if (typeof session.conversationData["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
-        if (typeof session.conversationData.software === 'undefined') {
+        if (typeof session.userData.OS === 'undefined') {
             session.beginDialog('GetOSInfo');
         }
         next();

@@ -9,13 +9,14 @@ module.exports = [
                                 builder.CardAction.postBack(session,'Install', 'Install software'),
                                 builder.CardAction.postBack(session,'Account', 'Account Creation'),
                                 builder.CardAction.postBack(session,'License', 'License (re)activation'),
+                                builder.CardAction.postBack(session,'GeneralQuestion', 'General Question'),
                                 builder.CardAction.postBack(session, 'Reset', 'Reset my user data')
                             ]);
 
 
         let message = new builder.Message(session).addAttachment(thumbnailCard);
 
-        let choices = ['Install', 'Account', 'License', 'Reset'];
+        let choices = ['Install', 'Account', 'License', 'GeneralQuestion', 'Reset'];
         builder.Prompts.choice(session, message, choices);
     },
     (session, results, next) => {
@@ -24,6 +25,16 @@ module.exports = [
             switch (results.response.entity) {
                 case 'Install' :
                     session.beginDialog('Installation');
+                    break;
+                case 'Account' :
+                    session.beginDialog('CreateAccount');
+                    break;
+                case 'License' :
+                    session.beginDialog('Licensing');
+                    break;
+                case 'GeneralQuestion':
+                    session.send("Please type down your question.")
+                    //session.beginDialog('GeneralQuestion');
                     break;
                 case 'Reset' :
                     //set empty and call save
