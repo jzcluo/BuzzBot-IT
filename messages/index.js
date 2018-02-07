@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
+//if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-}
+//}
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 
@@ -94,9 +94,10 @@ bot.dialog("/", [
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
-bot.dialog("GetUserInfo", InstallaionDialog.ExtractUserInfo).triggerAction({
+bot.dialog("Installation", InstallaionDialog.InstallationDialog).triggerAction({
     matches : 'Installation'
 });
+
 //installation steps for matlab
 bot.dialog("InstallMatlab", InstallMatlab.InstallMatlab);
 bot.dialog("InstallMatlab_Mac", InstallMatlab.InstallMatlab_Mac);
@@ -127,6 +128,7 @@ bot.dialog("InstallJava_Linux", InstallJava.InstallJava_Linux);
 //dialogs used to get user's information
 bot.dialog("GetSoftwareInfo", GetUserInfoDialog.GetSoftwareInfo);
 bot.dialog("GetOSInfo", GetUserInfoDialog.GetOSInfo);
+bot.dialog("GetVersionInfo", GetUserInfoDialog.GetVersionInfo);
 
 
 //cancel dialog that returns to the dialog before current dialog

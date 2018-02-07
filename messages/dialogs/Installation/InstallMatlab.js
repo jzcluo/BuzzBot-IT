@@ -26,6 +26,7 @@ module.exports.InstallMatlab = [
 
 module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
+        session.send("Let's help you install matlab on Windows")
         next();
     },
     (session, results, next) => {
