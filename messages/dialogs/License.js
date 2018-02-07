@@ -2,6 +2,9 @@ const builder = require('botbuilder');
 const LICENSEACTION = require('./Enums').LICENSEACTION;
 const LICENSETYPE = require('./Enums').LICENSETYPE;
 
+const Levenshtein_Distance = require('./Util').Levenshtein_Distance;
+const GetClosestMatch = require('./Util').GetClosestMatch;
+
 module.exports.LicensingDialog = [
     (session, args, next) => {
 
