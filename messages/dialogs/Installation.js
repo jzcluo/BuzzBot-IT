@@ -41,9 +41,15 @@ module.exports.InstallationDialog = [
         if (typeof session.conversationData.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
+        next();
+    },
+    (session, results, next) => {
         if (typeof session.conversationData["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
+        next();
+    },
+    (session, results, next) => {
         if (typeof session.userData.OS === 'undefined') {
             session.beginDialog('GetOSInfo');
         }

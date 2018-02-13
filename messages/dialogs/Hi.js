@@ -4,20 +4,24 @@ module.exports = [
     (session, args, next) => {
         let thumbnailCard = new builder.ThumbnailCard(session)
                             .title('Hi Yellow Jacket')
-                            .subtitle('How can I help you today? Select a choice or type down your problem')
-                            .buttons([
+                            .subtitle('How can I help you today? Please describe your problem.');
+                            //.text("How can I help you?");
+                            /*buttons([
                                 builder.CardAction.postBack(session,'Install', 'Install software'),
                                 builder.CardAction.postBack(session,'Account', 'Account Creation'),
                                 builder.CardAction.postBack(session,'License', 'License (re)activation'),
                                 builder.CardAction.postBack(session,'GeneralQuestion', 'General Question'),
                                 builder.CardAction.postBack(session, 'Reset', 'Reset my user data')
                             ]);
+                            */
 
 
         let message = new builder.Message(session).addAttachment(thumbnailCard);
 
-        let choices = ['Install', 'Account', 'License', 'GeneralQuestion', 'Reset'];
-        builder.Prompts.choice(session, message, choices);
+        //let choices = ['Install', 'Account', 'License', 'GeneralQuestion', 'Reset'];
+        //builder.Prompts.choice(session, message, choices);
+        session.send(message);
+        next();
     },
     (session, results, next) => {
 
