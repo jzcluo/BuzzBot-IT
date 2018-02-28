@@ -67,7 +67,7 @@ if (useEmulator) {
 //const NoneDialog = require('./dialogs/None');
 const HiDialog = require('./dialogs/Hi');
 const HelpDialog = require('./dialogs/Help');
-
+const BackDialog = require('./dialogs/Back');
 
 //Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
@@ -109,6 +109,8 @@ bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
 
+bot.dialog('Back', BackDialog);
+
 bot.dialog("Installation", InstallaionDialog.InstallationDialog).triggerAction({
     matches : 'Installation'
 });
@@ -138,7 +140,13 @@ bot.dialog("InstallMatlab_Windows", InstallMatlab.InstallMatlab_Windows).beginDi
     {
         matches : 'Help'
     }
+).beginDialogAction(
+    'InstallMatlabBackAction', 'Back',
+    {
+        matches : 'Back'
+    }
 );
+
 bot.dialog("InstallMatlab_Linux", InstallMatlab.InstallMatlab_Linux);
 
 bot.dialog("InstallMatlabHelp_Windows", InstallMatlabHelp.InstallMatlabHelp_Windows);

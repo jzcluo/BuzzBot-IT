@@ -39,13 +39,15 @@ module.exports.InstallMatlab_Windows = [
         }
     },
     (session, results, next) => {
-        if (results.entity && results.entity.response) {
-            if (results.entity.response == "Yes") {
+        if (results.response && results.response.entity) {
+            if (results.response.entity == "Yes") {
                 next();
             } else {
                 session.endConversation("Sorry, I cannot help you with that.");
                 session.beginDialog("Help");
             }
+        } else {
+            next();
         }
     },
     (session, results, next) => {
@@ -103,7 +105,6 @@ module.exports.InstallMatlab_Windows = [
         }
     },
     (session, results, next) => {
-        console.log(session);
         if (results.response) {
             if (results.response.entity == "Next Step") {
                 let card1 = new builder.HeroCard(session)
