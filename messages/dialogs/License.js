@@ -18,7 +18,7 @@ module.exports.LicensingDialog = [
                 console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'LicenseAction':
-                        session.conversationData.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);                        session.save();
+                        session.conversationData.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
                         session.save();
                         break;
                     case 'LicenseType':

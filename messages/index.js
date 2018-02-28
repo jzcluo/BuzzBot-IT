@@ -30,7 +30,9 @@ var documentDbOptions = {
 var docDbClient = new botbuilder_azure.DocumentDbClient(documentDbOptions);
 var cosmosStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, docDbClient);
 
-var bot = new builder.UniversalBot(connector);
+const NoneDialog = require('./dialogs/None');
+
+var bot = new builder.UniversalBot(connector, NoneDialog);
 bot.localePath(path.join(__dirname, './locale'));
 bot.set('storage', cosmosStorage);
 
@@ -62,7 +64,9 @@ if (useEmulator) {
 
 
 //These dialogs are difined within the dialogs folder
+//const NoneDialog = require('./dialogs/None');
 const HiDialog = require('./dialogs/Hi');
+
 //Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
 const InstallMatlab = require('./dialogs/Installation/InstallMatlab');
@@ -89,20 +93,20 @@ bot.on('conversationUpdate', (message) => {
     console.log(message.membersAdded);
     if (message.membersAdded && message.membersAdded[0].id === message.address.bot.id) {
         console.log("begining dialog HI")
-        bot.beginDialog(message.address, 'Hi');
+        //bot.beginDialog(message.address, 'Hi');
+        let thumbnailCard = new builder.ThumbnailCard()
+                            .title('Hi Yellow Jacket')
+                            .subtitle('How can I help you today? Please describe your problem.');
+
+        let card = new builder.Message().addAttachment(thumbnailCard).address(message.address);
+        bot.send(card);
+
     }
 });
-
-bot.dialog("/", [
-    (session, args) => {
-        console.log("default convo");
-        session.endDialog("heeeeeehe");
-    }
-]);
-
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
+
 bot.dialog("Installation", InstallaionDialog.InstallationDialog).triggerAction({
     matches : 'Installation'
 });

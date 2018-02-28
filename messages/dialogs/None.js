@@ -2,27 +2,27 @@ const builder = require('botbuilder');
 
 module.exports = [
     (session, args, next) => {
-        console.log("Luis args in Hi");
+        console.log("Luis args in None");
         console.log(args);
+        //console.log(args.intent.intents);
         let thumbnailCard = new builder.ThumbnailCard(session)
-                            .title('Hi Yellow Jacket')
-                            .subtitle('How can I help you today? Please describe your problem.');
+                            //.title('Hi Yellow Jacket')
+                            .subtitle("Sorry I didn't understand. Here are the things I can do.")
                             //.text("How can I help you?");
-                            /*buttons([
+                            .buttons([
                                 builder.CardAction.postBack(session,'Install', 'Install software'),
                                 builder.CardAction.postBack(session,'Account', 'Account Creation'),
                                 builder.CardAction.postBack(session,'License', 'License (re)activation'),
                                 builder.CardAction.postBack(session,'GeneralQuestion', 'General Question'),
                                 builder.CardAction.postBack(session, 'Reset', 'Reset my user data')
                             ]);
-                            */
+
 
 
         let message = new builder.Message(session).addAttachment(thumbnailCard);
 
-        //let choices = ['Install', 'Account', 'License', 'GeneralQuestion', 'Reset'];
-        //builder.Prompts.choice(session, message, choices);
-        session.send(message);
+        let choices = ['Install', 'Account', 'License', 'GeneralQuestion', 'Reset'];
+        builder.Prompts.choice(session, message, choices);
         next();
     },
     (session, results, next) => {
