@@ -102,17 +102,66 @@ module.exports.GetLicenseType = [
         session.save();
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSETYPE);
+        choiceList.push("Not Sure");
         builder.Prompts.choice(session, "What type of license are you trying to get?", choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
-            session.conversationData.LicenseType = results.response.entity;
-            session.save();
+            if (results.response.entity == "Not Sure") {
+                next();
+            } else {
+                session.conversationData.LicenseType = results.response.entity;
+                session.save();
+                session.conversationData.recognizerEnabled = true;
+                session.endDialog();
+            }
         }
-        session.conversationData.recognizerEnabled = true;
+        next();
+    },
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
         session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        builder.Prompts.choice(session, "Are you a students, faculty, and staff trying to install on a personal machine or Georgia Tech laptop?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            if (results.response.entity == "Yes") {
+                session.conversationData.LicenseType = "Individual";
+                session.conversationData.recognizerEnabled = true;
+                session.save();
+                session.endDialog();
+            } else {
+                next();
+            }
+        }
+        next();
+    },
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        builder.Prompts.choice(session, "Are you trying to install on a Georgia Tech system such as office desktop, lab workstation, classroom, server or a computer lab", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            if (results.response.entity == "Yes") {
+                session.conversationData.LicenseType = "Network";
+                session.conversationData.recognizerEnabled = true;
+                session.save();
+            } else {
+                session.endConversation("Sorry, Please contact support");
+            }
+        }
         session.endDialog();
+
     }
 ]
 
@@ -125,7 +174,7 @@ module.exports.GetLicenseAction = [
         session.save();
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSEACTION);
-        builder.Prompts.choice(session, "Which of the following are you tryign to do?", choiceList, {listStyle : builder.ListStyle.button});
+        builder.Prompts.choice(session, "Which of the following are you trying to do?", choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {

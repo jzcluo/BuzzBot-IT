@@ -6,7 +6,7 @@ module.exports = [
         console.log(args);
         //console.log(args.intent.intents);
         let thumbnailCard = new builder.ThumbnailCard(session)
-                            .subtitle("Sorry I didn't understand. Here are the things I can do.")
+                            .subtitle("I am BuzzBot-IT. I can help you with Matlab related problems. The following are the things I can do.")
                             .buttons([
                                 builder.CardAction.postBack(session,'Install', 'Install software'),
                                 builder.CardAction.postBack(session,'Account', 'Account Creation'),

@@ -66,6 +66,8 @@ if (useEmulator) {
 //These dialogs are difined within the dialogs folder
 //const NoneDialog = require('./dialogs/None');
 const HiDialog = require('./dialogs/Hi');
+const HelpDialog = require('./dialogs/Help');
+
 
 //Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
@@ -162,6 +164,9 @@ bot.dialog("GetLicenseType", GetUserInfoDialog.GetLicenseType);
 bot.dialog("GetLicenseAction", GetUserInfoDialog.GetLicenseAction);
 bot.dialog("WhetherLicenseExpired", GetUserInfoDialog.WhetherLicenseExpired);
 
+bot.dialog("Help", HelpDialog).triggerAction({
+    matches : 'Help'
+});
 
 //cancel dialog that returns to the dialog before current dialog
 bot.dialog("Cancel", [
