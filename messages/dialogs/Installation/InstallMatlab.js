@@ -1,5 +1,10 @@
 const builder = require('botbuilder');
-const OS = require('../Enums.js').OPERATINGSYSTEM;
+const OS = require('../Enums').OPERATINGSYSTEM;
+const UNSUPPORTED_VERSIONS_WINDOWS = require('../Enums').UNSUPPORTED_VERSIONS_WINDOWS;
+const UNSUPPORTED_VERSIONS_MAC = require('../Enums').UNSUPPORTED_VERSIONS_MAC;
+const UNSUPPORTED_VERSIONS_LINUX = require('../Enums').UNSUPPORTED_VERSIONS_LINUX;
+
+
 
 //To start a dialog, look up the dialog name with the type of OS
 const InstallMatlabDialogs = {
@@ -26,6 +31,24 @@ module.exports.InstallMatlab = [
 
 module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
+        if (session.conversationData["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
+            session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[session.conversationData["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
+            builder.Prompts.choice(session, "Continue?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+        } else {
+            next();
+        }
+    },
+    (session, results, next) => {
+        if (results.entity && results.entity.response) {
+            if (results.entity.response == "Yes") {
+                next();
+            } else {
+                session.endConversation("Sorry, I cannot help you with that.");
+                session.beginDialog("Help");
+            }
+        }
+    },
+    (session, results, next) => {
         session.send("Let's help you install matlab on Windows")
         next();
     },

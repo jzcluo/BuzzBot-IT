@@ -14,7 +14,22 @@ module.exports.VERSION = {
     R2016a : "R2016a",
     R2016b : "R2016b",
     R2017a : "R2017a",
-    R2017b : "R2017b"
+    R2017b : "R2017b",
+    R2018a : "R2018a"
+}
+
+module.exports.UNSUPPORTED_VERSIONS_WINDOWS = {
+    "R2017b" : ["Windows 8"],
+    "R2018a" : ["Windows Server 2008 R2"]
+}
+
+module.exports.UNSUPPORTED_VERSIONS_MAC = {
+    "R2010b" : ["MacOS-X Intel 32 bit"],
+    "R2017b" : ["MacOS-X Yosemite (10.10)"]
+}
+
+module.exports.UNSUPPORTED_VERSIONS_LINUX = {
+    "R2017a" : ["Debian 7"]
 }
 
 module.exports.LICENSEACTION = {
