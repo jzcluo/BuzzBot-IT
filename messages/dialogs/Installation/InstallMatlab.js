@@ -51,14 +51,14 @@ module.exports.InstallMatlab_Windows = [
         }
     },
     (session, results, next) => {
-        session.send("Let's help you install matlab on Windows")
+        //session.send("Let's help you install matlab on Windows")
         next();
     },
     (session, results, next) => {
         //Step 1
         //Go to the download site
         let card = new builder.HeroCard(session)
-                        .title("Go to this link to create an Mathworks account and download installation file.")
+                        .text("Go to this link to create an Mathworks account and download installation file.")
                         .buttons([
                             builder.CardAction.openUrl(session, "https://www.mathworks.com/academia/tah-portal/georgia-institute-of-technology-621625.html", "open link")
                         ]);
