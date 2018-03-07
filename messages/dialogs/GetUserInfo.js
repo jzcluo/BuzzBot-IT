@@ -81,24 +81,29 @@ module.exports.GetVersionInfo = [
         //make a clone of VERSION and modify it
         let version = Object.assign({}, VERSION);
 
+        let hint = "";
+
         if (session.userData.OS == "Windows") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting Windows 8)";
+            hint = 'You can find you version number by typing "about" in the search box on your taskbar, and then select About your PC.';
         } else if (session.userData.OS == "MacOS") {
             version["R2017a"] += " (Recommended)";
-            version["R2017b"] += " (Not supporting MacOS-X Yosemite";
+            version["R2017b"] += " (Not supporting MacOS-X Yosemite)";
+            hint = 'You can find you version number by clicking on the Apple icon in the top left corner of your screen. From there, you can click "About this Mac".';
         } else if (session.userData.OS == "Linux") {
             version["R2017b"] += " (Recommended)";
-            version["R2017a"] += " (Not supporting Debian 7";
+            version["R2017a"] += " (Not supporting Debian 7)";
+            hint = "To find out what distribution of linux your running (Ex. Ubuntu) try lsb_release -a or cat /etc/*release or cat /etc/issue* or cat /proc/version."
         }
 
-        version["R2018a"] += " (Beta version)"
+        version["R2018a"] += " (Beta version)";
 
 
 
         let choiceList = Object.values(version);
 
-        builder.Prompts.choice(session, "What version of matlab are you trying to download?", choiceList, {listStyle : builder.ListStyle.button});
+        builder.Prompts.choice(session, "What version of matlab are you trying to download? " + hint, choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {

@@ -58,7 +58,7 @@ module.exports.InstallMatlab_Windows = [
         //Step 1
         //Go to the download site
         let card = new builder.HeroCard(session)
-                        .title("Go to this link")
+                        .title("Go to this link to create an Mathworks account and download installation file.")
                         .buttons([
                             builder.CardAction.openUrl(session, "https://www.mathworks.com/academia/tah-portal/georgia-institute-of-technology-621625.html", "open link")
                         ]);
