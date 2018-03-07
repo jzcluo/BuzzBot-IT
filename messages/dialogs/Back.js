@@ -19,6 +19,7 @@ module.exports = [
         session.cancelDialog(session.dialogStack()[args.dialogIndex].id);//, session.dialogStack()[args.dialogIndex - 1].id);
         console.log(session.dialogStack());
 
+        session.send("Going back to the last step you were on.");
         session.beginDialog(lastDialog);
 
         //session.dialogStack()[args.dialogIndex].state["BotBuilder.Data.WaterfallStep"] = waterfallStepIndex - 2;
