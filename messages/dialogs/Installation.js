@@ -44,14 +44,14 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results, next) => {
-        if (typeof session.conversationData["version"] === 'undefined') {
-            session.beginDialog('GetVersionInfo');
+        if (typeof session.userData.OS === 'undefined') {
+            session.beginDialog('GetOSInfo');
         }
         next();
     },
     (session, results, next) => {
-        if (typeof session.userData.OS === 'undefined') {
-            session.beginDialog('GetOSInfo');
+        if (typeof session.conversationData["version"] === 'undefined') {
+            session.beginDialog('GetVersionInfo');
         }
         next();
     },

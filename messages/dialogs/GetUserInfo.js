@@ -77,14 +77,34 @@ module.exports.GetVersionInfo = [
         //session.save();
         session.conversationData.recognizerEnabled = false;
         session.save();
-        console.log(session.conversationData.recognizerEnabled);
-        let choiceList = Object.keys(VERSION);
+
+        //make a clone of VERSION and modify it
+        let version = Object.assign({}, VERSION);
+
+        if (session.userData.OS == "Windows") {
+            version["R2017a"] += " (Recommended)";
+            version["R2017b"] += " (Not supporting Windows 8)";
+        } else if (session.userData.OS == "MacOS") {
+            version["R2017a"] += " (Recommended)";
+            version["R2017b"] += " (Not supporting MacOS-X Yosemite";
+        } else if (session.userData.OS == "Linux") {
+            version["R2017b"] += " (Recommended)";
+            version["R2017a"] += " (Not supporting Debian 7";
+        }
+
+        version["R2018a"] += " (Beta version)"
+
+
+
+        let choiceList = Object.values(version);
+
         builder.Prompts.choice(session, "What version of matlab are you trying to download?", choiceList, {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
-            session.conversationData["version"] = results.response.entity;
+            session.conversationData["version"] = results.response.entity.split(" ")[0];
+            console.log(session.conversationData);
             session.save();
         }
         session.conversationData.recognizerEnabled = true;
