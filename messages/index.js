@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
+//if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-}
+//}
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 
@@ -87,7 +87,9 @@ const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWor
 
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
-
+bot.dialog('Hi', HiDialog).triggerAction({
+    matches : 'Hi'
+});
 //called when a user is added to the conversationUpdate
 //https://stackoverflow.com/questions/42353337/is-it-possible-to-detect-when-a-user-opens-the-chat-window-on-facebook/42353957
 bot.on('conversationUpdate', (message) => {
@@ -95,18 +97,17 @@ bot.on('conversationUpdate', (message) => {
     console.log(message.membersAdded);
     if (message.membersAdded && message.membersAdded[0].id === message.address.bot.id) {
         console.log("begining dialog HI")
-        //bot.beginDialog(message.address, 'Hi');
+        bot.beginDialog(message.address, 'Hi');
+        /*
         let thumbnailCard = new builder.ThumbnailCard()
                             .title('Hi Yellow Jacket')
                             .subtitle('How can I help you today? Please describe your problem.');
 
         let card = new builder.Message().addAttachment(thumbnailCard).address(message.address);
         bot.send(card);
+        */
 
     }
-});
-bot.dialog('Hi', HiDialog).triggerAction({
-    matches : 'Hi'
 });
 
 bot.dialog('Back', BackDialog);

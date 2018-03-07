@@ -27,6 +27,10 @@ module.exports.LicensingDialog = [
                         break;
                 }
             }
+            //it has to be individual license because only individual license has reactivation and deactivation process
+            if (session.conversationData.LicenseAction == "Deactivation" || session.conversationData.LicenseAction == "Reactivation") {
+                session.conversationData.LicenseType = "Individual";
+            }
         }
         next();
     },

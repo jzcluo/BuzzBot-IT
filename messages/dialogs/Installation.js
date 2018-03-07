@@ -45,6 +45,7 @@ module.exports.InstallationDialog = [
     },
     (session, results, next) => {
         if (typeof session.userData.OS === 'undefined') {
+            session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
         next();
@@ -57,7 +58,7 @@ module.exports.InstallationDialog = [
     },
     (session, results, next) => {
         session.save();
-        session.send(`Let's help you install ${session.conversationData.software}`);
+        session.send(`Let's help you install ${session.conversationData.software} version ${session.conversationData["version"]} on your ${session.userData.OS} machines!`);
         //depends on what software the user wants to Install
         //start corresponding tutorial
         session.beginDialog(InstallationDialogs[session.conversationData.software]);

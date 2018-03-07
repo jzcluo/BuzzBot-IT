@@ -8,10 +8,10 @@ module.exports = [
         let thumbnailCard = new builder.ThumbnailCard(session)
                             .subtitle("I am BuzzBot-IT. I can help you with Matlab related problems. The following are the things I can do.")
                             .buttons([
-                                builder.CardAction.postBack(session,'Install', 'Install software'),
-                                builder.CardAction.postBack(session,'Account', 'Account Creation'),
-                                builder.CardAction.postBack(session,'License', 'License (re)activation'),
-                                builder.CardAction.postBack(session,'GeneralQuestion', 'General Question'),
+                                builder.CardAction.postBack(session,'Install', 'Install Matlab'),
+                                builder.CardAction.postBack(session,'Account', 'Mathworks Account Creation'),
+                                builder.CardAction.postBack(session,'License', 'Matlab License (re)activation'),
+                                builder.CardAction.postBack(session,'GeneralQuestion', 'General Question about Matlab')
                                 //builder.CardAction.postBack(session, 'Reset', 'Reset my user data')
                             ]);
 

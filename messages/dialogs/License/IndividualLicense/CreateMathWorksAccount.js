@@ -15,6 +15,10 @@ module.exports.CreateAccount = [
         }
     },
     (session, results, next) => {
+        session.send("The steps for creating a MathWorks account is not yet implemented.");
+        next();
+    },
+    (session, results, next) => {
         builder.Prompts.choice(session, "Did that solve your problem?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {

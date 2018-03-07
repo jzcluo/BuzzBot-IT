@@ -3,7 +3,7 @@ const builder = require("botbuilder");
 
 module.exports.ReactivateExpiredLicense = [
     (session, args) => {
-        session.send("Let's help you reactivate your expired individual license?");
+        session.send("It looks like you are trying to reactivate your expired individual license. Is that correct?");
         builder.Prompts.choice(session, " ", ["Yes", "No"], {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
@@ -13,6 +13,10 @@ module.exports.ReactivateExpiredLicense = [
             session.send("Sorry about that");
             session.beginDialog("Hi");
         }
+    },
+    (session, results, next) => {
+        session.send("The steps for reactivating expired individual license is not yet implemented");
+        next();
     },
     (session, results, next) => {
         builder.Prompts.choice(session, "Did that solve your problem?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
