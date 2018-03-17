@@ -1,5 +1,6 @@
 const builder = require('botbuilder');
 const GetClosestMatch = require('./Util').GetClosestMatch;
+const SuggestedActionsMessage = require('./Util').SuggestedActionsMessage;
 const SOFTWARE = require('./Enums').SOFTWARE;
 const OS = require('./Enums').OPERATINGSYSTEM;
 const VERSION = require('./Enums').VERSION;
@@ -17,7 +18,8 @@ module.exports.GetSoftwareInfo = [
         let choiceList = Object.keys(SOFTWARE);
         //add in the option of other
         choiceList.push("Other");
-        builder.Prompts.choice(session, "What software are you installing?", choiceList, {listStyle : builder.ListStyle.button});
+        let suggestedActions = SuggestedActionsMessage(session, "What software are you installing", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -56,7 +58,8 @@ module.exports.GetOSInfo = [
         session.save();
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(OS);
-        builder.Prompts.choice(session, "What operating system are you using?", choiceList, {listStyle : builder.ListStyle.button});
+        let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -102,8 +105,9 @@ module.exports.GetVersionInfo = [
 
 
         let choiceList = Object.values(version);
+        let suggestedActions = SuggestedActionsMessage(session, "What version of matlab are you trying to download? " + hint, choiceList);
 
-        builder.Prompts.choice(session, "What version of matlab are you trying to download? " + hint, choiceList, {listStyle : builder.ListStyle.button});
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -128,7 +132,9 @@ module.exports.GetLicenseType = [
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSETYPE);
         choiceList.push("Not Sure");
-        builder.Prompts.choice(session, "What type of license are you trying to get?", choiceList, {listStyle : builder.ListStyle.button});
+
+        let suggestedActions = SuggestedActionsMessage(session, "What type of license are you trying to get?", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -151,7 +157,8 @@ module.exports.GetLicenseType = [
         session.conversationData.recognizerEnabled = false;
         session.save();
         console.log(session.conversationData.recognizerEnabled);
-        builder.Prompts.choice(session, "Are you a students, faculty, and staff trying to install on a personal machine or Georgia Tech laptop?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+        let suggestedActions = SuggestedActionsMessage(session, "Are you a students, faculty, and staff trying to install on a personal machine or Georgia Tech laptop?", ["Yes", "No"])
+        builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -173,7 +180,8 @@ module.exports.GetLicenseType = [
         session.conversationData.recognizerEnabled = false;
         session.save();
         console.log(session.conversationData.recognizerEnabled);
-        builder.Prompts.choice(session, "Are you trying to install on a Georgia Tech system such as office desktop, lab workstation, classroom, server or a computer lab", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+        let suggestedActions = SuggestedActionsMessage(session, "Are you trying to install on a Georgia Tech system such as office desktop, lab workstation, classroom, server or a computer lab", ["Yes", "No"])
+        builder.Prompts.choice(session, suggestedActions, ["Yes", "No"], {listStyle : builder.ListStyle.button});
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
@@ -199,17 +207,69 @@ module.exports.GetLicenseAction = [
         session.save();
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSEACTION);
-        builder.Prompts.choice(session, "Which of the following are you trying to do?", choiceList, {listStyle : builder.ListStyle.button});
+        choiceList.push("Not Sure");
+        let suggestedActions = SuggestedActionsMessage(session, "Which of the following are you trying to do?", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
-            session.conversationData.LicenseAction = results.response.entity;
-            session.save();
+            if (results.response.entity == "Not Sure") {
+                next();
+            } else {
+                session.conversationData.LicenseAction = results.response.entity;
+                session.save();
+                session.conversationData.recognizerEnabled = true;
+                session.endDialog();
+            }
         }
-        session.conversationData.recognizerEnabled = true;
+        next();
+    },
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
         session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        let suggestedActions = SuggestedActionsMessage(session, "Are you trying to get a new license?", ["Yes", "No"])
+        builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            if (results.response.entity == "Yes") {
+                session.conversationData.LicenseAction = "Activation";
+                session.conversationData.recognizerEnabled = true;
+                session.save();
+                session.endDialog();
+            } else {
+                next();
+            }
+        }
+        next();
+    },
+    (session, args, next) => {
+        //temperarily disable luis recognizer so user can decide to type info
+        //session.conversationData.recognizerEnabled = false;
+        //session.save();
+        session.conversationData.recognizerEnabled = false;
+        session.save();
+        console.log(session.conversationData.recognizerEnabled);
+        let suggestedActions = SuggestedActionsMessage(session, "Is it your first time trying to get a license?", ["Yes", "No"]);
+        builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
+    },
+    (session, results, next) => {
+        if (results.response && results.response.entity) {
+            if (results.response.entity == "Yes") {
+                session.conversationData.LicenseAction = "Network";
+                session.conversationData.recognizerEnabled = true;
+                session.save();
+            } else {
+                session.endConversation("Sorry, Please contact support");
+            }
+        }
         session.endDialog();
+
     }
 ]
 
@@ -222,7 +282,8 @@ module.exports.WhetherLicenseExpired = [
         session.save();
         console.log(session.conversationData.recognizerEnabled);
         let choiceList = ["Yes", "No"];
-        builder.Prompts.choice(session, "If your license currently expired?", choiceList, {listStyle : builder.ListStyle.button});
+        let suggestedActions = SuggestedActionsMessage(session, "If your license currently expired?", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {

@@ -1,4 +1,18 @@
+const builder = require('botbuilder');
 
+const SuggestedActionsMessage = function (session, text, choices) {
+    //first parameter is the prompt text
+    //parameters that follow it are the choices
+    let choiceArray = [];
+    for (let i = 0; i < choices.length; i++) {
+        choiceArray.push(new builder.CardAction.imBack(session, choices[i], choices[i]));
+    }
+
+    let message = new builder.Message(session)
+        .text(text)
+        .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
+    return message;
+}
 const Levenshtein_Distance = function (str1, str2) {
     if (str1.length == 0) {
         return str2.length;
@@ -49,3 +63,4 @@ const GetClosestMatch = function (choiceList, userInput) {
 
 module.exports.Levenshtein_Distance = Levenshtein_Distance;
 module.exports.GetClosestMatch = GetClosestMatch;
+module.exports.SuggestedActionsMessage = SuggestedActionsMessage;
