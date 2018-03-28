@@ -3,9 +3,8 @@ const SuggestedActionsMessage = require('../../Util').SuggestedActionsMessage;
 
 module.exports.CreateAccount = [
     (session, args) => {
-        session.send("Let's help you create a MathWorks account?");
         let choiceList = ["Yes", "No"];
-        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        let suggestedActions = SuggestedActionsMessage(session, "Let's help you create a MathWorks account?", choiceList);
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {

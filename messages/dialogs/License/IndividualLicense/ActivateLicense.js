@@ -3,9 +3,8 @@ const builder = require("botbuilder");
 
 module.exports.ActivateLicense = [
     (session, args) => {
-        session.send("It looks like you are trying to activate your individual license. Is that correct?");
         let choiceList = ["Yes", "No"];
-        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        let suggestedActions = SuggestedActionsMessage(session, "It looks like you are trying to activate your individual license. Is that correct?", choiceList);
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
