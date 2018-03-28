@@ -8,9 +8,17 @@ const SuggestedActionsMessage = function (session, text, choices) {
         choiceArray.push(new builder.CardAction.imBack(session, choices[i], choices[i]));
     }
 
-    let message = new builder.Message(session)
-        .text(text)
-        .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
+    let message;
+    if (text) {
+        //if text is not empty
+        message = new builder.Message(session)
+            .text(text)
+            .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
+    } else {
+        //no text
+        message = new builder.Message(session)
+            .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
+    }
     return message;
 }
 const Levenshtein_Distance = function (str1, str2) {
