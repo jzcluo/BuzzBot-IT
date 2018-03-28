@@ -11,67 +11,72 @@ module.exports.CreateAccount = [
             next();
         } else {
             session.send("Sorry about that");
+            session.endDialog();
             session.beginDialog("Hi");
         }
     },
     (session, results, next) => {
-		session.send(`Let's help you create a MathWorks account!`);
-		session.send(`The Georgia Tech’s MATLAB Portal is available at this link. Please click to open this link.`);
-		let herocards = new builder.Message(session)
-			.attachments([
-				new builder.HeroCard(session)
-					.buttons([
-						builder.CardAction.openUrl(session, "https://www.mathworks.com/academia/tah-portal/georgia-institute-of-technology-621625.html", "Link to Georgia Tech's MATLAB Portal")
-					])
-			]);
-		session.send(herocards);
-		let choiceList = ["Next Step"];
-		let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
-		builder.Prompts.choice(session, suggestedActions, choiceList);
-	},
-	(session, results, next) => {
-		let herocards = new builder.Message(session)
-			.attachments([
-				new builder.HeroCard(session)
-					.text(`Step 1- click on the “Get started now” link on the main page`)
-					.images([
-						builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Download_Icon.png")
-					])
+        session.send(`Let's help you create a MathWorks account`);
+        session.send(`The Georgia Tech’s MATLAB Portal is available at this link. Please click to open this link.`);
+        let herocards = new builder.Message(session)
+            .attachments([
+                new builder.HeroCard(session)
+                    .buttons([
+                        builder.CardAction.openUrl(session, "https://www.mathworks.com/academia/tah-portal/georgia-institute-of-technology-621625.html", "Link to Georgia Tech's MATLAB Portal")
+                    ])
+            ]);
+        session.send(herocards);
+        let choiceList = ["Next Step"];
+        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
+    },
+    (session, results, next) => {
+        let herocards = new builder.Message(session)
+            .attachments([
+                new builder.HeroCard(session)
+                    .text(`Step 1- click on the “Get started now” link on the main page`)
+                    .images([
+                        builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Download_Icon.png")
+                    ])
 
-			]);
-		session.send(herocards);
-		let choiceList = ["Next Step"];
-		let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
-		builder.Prompts.choice(session, suggestedActions, choiceList);
-	},
-	(session, results, next) => {
-		let herocards = new builder.Message(session)
-			.attachments([
-				new builder.HeroCard(session)
-					.text(`Step 2- login with your GT credentials`)
-					.images([
-						builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Port_GT_Login_1-1024x754.png, http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Port_GT_Login_2-1024x684.png")
-					])
+            ]);
+        session.send(herocards);
+        let choiceList = ["Next Step"];
+        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
+    },
+    (session, results, next) => {
+        let herocards = new builder.Message(session)
+            .attachments([
+                new builder.HeroCard(session)
+                    .text(`Step 2- login with your GT credentials`)
+                    .images([
+                        builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Port_GT_Login_1-1024x754.png"),
+                        builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Port_GT_Login_2-1024x684.png")
+                    ])
 
-			]);
-		session.send(herocards);
-		let choiceList = ["Next Step"];
-		let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
-		builder.Prompts.choice(session, suggestedActions, choiceList);
-	},
-	(session, results, next) => {
-		let herocards = new builder.Message(session)
-			.attachments([
-				new builder.HeroCard(session)
-					.text(`Step 3- You will need to create a Mathworks account if you do not have one already. The Mathworks account is separate from your Georgia Tech login / password.`)
-					.images([
-						builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Create_Account_1-1024x331.jpg, http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Create_Account_2.jpg")
-					])
+            ]);
+        session.send(herocards);
+        let choiceList = ["Next Step"];
+        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
+    },
+    (session, results, next) => {
+        let herocards = new builder.Message(session)
+            .attachments([
+                new builder.HeroCard(session)
+                    .text(`Step 3- You will need to create a Mathworks account if you do not have one already. The Mathworks account is separate from your Georgia Tech login / password.`)
+                    .images([
+                        builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Create_Account_1-1024x331.jpg"),
+                        builder.CardImage.create(session, "http://matlab.gatech.edu/wp-content/uploads/sites/63/2017/08/Matlab_Portal_Create_Account_2.jpg")
+                    ])
 
-			]);
-		session.send(herocards);
-        next();
-	},
+            ]);
+        session.send(herocards);
+        let choiceList = ["Finish"];
+        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
+    },
     (session, results, next) => {
         builder.Prompts.choice(session, "Did that solve your problem?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
     },
