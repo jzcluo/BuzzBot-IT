@@ -194,7 +194,7 @@ module.exports.GetNetworkLicense = [
                 new builder.HeroCard(session)
                     .text(`Note that You will be asked to insert DVD2. If you are mounting an ISO image using virtual clone drive under Win7 or the built-in Win 8.1 / 10 function. unmount it first. This can be done typically by right-clicking on the virtual DVD drive and selecting unmount.`)
                     .images([
-                        builder.CardImage.create(session, `http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step11(2).png`)
+                        builder.CardImage.create(session, `http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step112.png`)
                     ])
 
             ]);
