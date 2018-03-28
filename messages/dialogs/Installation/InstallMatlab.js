@@ -33,7 +33,9 @@ module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
         if (session.conversationData["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
             session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[session.conversationData["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
-            builder.Prompts.choice(session, "Continue?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+            let choiceList = ["Yes", "No"];
+            let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+            builder.Prompts.choice(session, suggestedActions, choiceList);
         } else {
             next();
         }
@@ -64,7 +66,9 @@ module.exports.InstallMatlab_Windows = [
                         ]);
         let message = new builder.Message(session).addAttachment(card);
         session.send(message);
-        builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+        let choiceList = ["Next Step", "Help"];
+        let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response) {
@@ -81,7 +85,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -100,7 +106,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -119,7 +127,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -133,7 +143,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -147,7 +159,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -161,7 +175,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).addAttachment(card);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },
@@ -182,7 +198,9 @@ module.exports.InstallMatlab_Windows = [
                                 ]);
                 let message = new builder.Message(session).attachments([card1, card2]);
                 session.send(message);
-                builder.Prompts.choice(session, " ", ["Next Step"], {listStyle : builder.ListStyle.button});
+                let choiceList = ["Next Step", "Help"];
+                let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
+                builder.Prompts.choice(session, suggestedActions, choiceList);
             }
         }
     },

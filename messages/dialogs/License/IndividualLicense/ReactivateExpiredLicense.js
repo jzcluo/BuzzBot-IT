@@ -4,7 +4,9 @@ const builder = require("botbuilder");
 module.exports.ReactivateExpiredLicense = [
     (session, args) => {
         session.send("It looks like you are trying to reactivate your expired individual license. Is that correct?");
-        builder.Prompts.choice(session, " ", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+        let choiceList = ["Yes", "No"];
+        let suggestedActions = SuggestedActionsMessage(session, "", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response.entity == "Yes") {
@@ -19,7 +21,9 @@ module.exports.ReactivateExpiredLicense = [
         next();
     },
     (session, results, next) => {
-        builder.Prompts.choice(session, "Did that solve your problem?", ["Yes", "No"], {listStyle : builder.ListStyle.button});
+        let choiceList = ["Yes", "No"];
+        let suggestedActions = SuggestedActionsMessage(session, "Did that solve your problem?", choiceList);
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response.entity == "Yes") {
