@@ -14,24 +14,11 @@ module.exports = [
                                 builder.CardAction.postBack(session,'GeneralQuestion', 'General Question about Matlab')
                                 //builder.CardAction.postBack(session, 'Reset', 'Reset my user data')
                             ]);
-                            var msg = new builder.Message(session)
-                            	.text("Thank you for expressing interest in our premium golf shirt! What color of shirt would you like?")
-                            	.suggestedActions(
-                            		builder.SuggestedActions.create(
-                            				session, [
-                            					builder.CardAction.imBack(session, "productId=1&color=green", "Green"),
-                            					builder.CardAction.imBack(session, "productId=1&color=blue", "Blue"),
-                            					builder.CardAction.imBack(session, "productId=1&color=red", "Red")
-                            				]
-                            			));
-                            //session.send(msg);
 
-
-        //let message = new builder.Message(session).addAttachment(thumbnailCard);
+        let message = new builder.Message(session).addAttachment(thumbnailCard);
 
         let choices = ['Install', 'Account', 'License', 'GeneralQuestion']//, //'Reset'];
         builder.Prompts.choice(session, msg, choices);
-        //next();
     },
     (session, results, next) => {
         console.log(results.response);

@@ -1,5 +1,6 @@
 
 const builder = require("botbuilder");
+const SuggestedActionsMessage = require('../../Util').SuggestedActionsMessage;
 
 module.exports.DeactivateLicense = [
     (session, args) => {
