@@ -51,6 +51,25 @@ recognizer.onEnabled((session, callback) => {
 bot.recognizer(recognizer);
 
 
+const ConversationLog = require('./dialogs/Util').ConversationLog;
+//set up middleware to intercept messages
+bot.use({
+    receive : (event, next) => {
+        ConversationLog.log += 'User : ' + event.text + '<br/>';
+        next();
+    },
+    send : (event, next) => {
+        if (event.text) {
+            ConversationLog.log += 'Bot : ' + event.text + '<br/>';
+        } else {
+            //if it is undefined. card message will be added in the card dialog
+            //conversationLog += 'Bot : <i>sends card</i><br/>';
+        }
+        next();
+    }
+});
+
+
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
@@ -87,6 +106,12 @@ const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWor
 
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
+const EmailLog = require('./dialogs/Email');
+
+bot.dialog('Email', EmailLog.SendEmail).triggerAction({
+    matches : 'Debug'
+});
+
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
@@ -106,7 +131,6 @@ bot.on('conversationUpdate', (message) => {
         let card = new builder.Message().addAttachment(thumbnailCard).address(message.address);
         bot.send(card);
         */
-
     }
 });
 

@@ -1,5 +1,9 @@
 const builder = require('botbuilder');
 
+module.exports.ConversationLog = {
+    log : ""
+}
+
 const SuggestedActionsMessage = function (session, text, choices) {
     //first parameter is the prompt text
     //parameters that follow it are the choices

@@ -18,7 +18,7 @@ module.exports = [
         let message = new builder.Message(session).addAttachment(thumbnailCard);
 
         let choices = ['Install', 'Account', 'License', 'GeneralQuestion']//, //'Reset'];
-        builder.Prompts.choice(session, msg, choices);
+        builder.Prompts.choice(session, message, choices);
     },
     (session, results, next) => {
         console.log(results.response);
