@@ -4,7 +4,7 @@ const ConversationLog = require('./Util').ConversationLog;
 
 module.exports.SendEmail = [
     (session, args, next) => {
-        sendIssueLog(session);
+        //sendIssueLog(session);
         session.endDialog("Sorry about that. I have sent this conversation log to my boss.");
     }
 ];
@@ -28,7 +28,7 @@ const sendIssueLog = function(session) {
     //BotAnswer : ${session.dialogData.answer}</p><br/>
     let mailOptions = {
         from: '"Your personal MATLAB expert" <buzzbot-it@outlook.com>', // sender address (who sends)
-        to: 'zluo@gatech.edu', // list of receivers (who receives) separated by commas
+        to: 'zluo@gatech.edu, annalise.irby@gatech.edu', // list of receivers (who receives) separated by commas
         subject: 'BuzzBot-IT Issue Log', // Subject line
         html: `<body>
                     <h2>Full Conversation Transcript</h2><br/>
