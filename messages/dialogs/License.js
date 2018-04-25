@@ -5,6 +5,8 @@ const LICENSETYPE = require('./Enums').LICENSETYPE;
 const Levenshtein_Distance = require('./Util').Levenshtein_Distance;
 const GetClosestMatch = require('./Util').GetClosestMatch;
 
+const Data = require('./Data').Data;
+
 module.exports.LicensingDialog = [
     (session, args, next) => {
 
@@ -18,40 +20,40 @@ module.exports.LicensingDialog = [
                 console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'LicenseAction':
-                        session.conversationData.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
+                        Data.conversationData.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
                         session.save();
                         break;
                     case 'LicenseType':
-                        session.conversationData.LicenseType = GetClosestMatch(Object.keys(LICENSETYPE), entityObject.entity);
+                        Data.conversationData.LicenseType = GetClosestMatch(Object.keys(LICENSETYPE), entityObject.entity);
                         session.save();
                         break;
                 }
             }
             //it has to be individual license because only individual license has reactivation and deactivation process
-            if (session.conversationData.LicenseAction == "Deactivation" || session.conversationData.LicenseAction == "Reactivation") {
-                session.conversationData.LicenseType = "Individual";
+            if (Data.conversationData.LicenseAction == "Deactivation" || Data.conversationData.LicenseAction == "Reactivation") {
+                Data.conversationData.LicenseType = "Individual";
             }
         }
         next();
     },
     (session, results, next) => {
-        if (typeof session.conversationData.LicenseType === 'undefined') {
+        if (typeof Data.conversationData.LicenseType === 'undefined') {
             session.beginDialog('GetLicenseType');
         }
         next();
     },
     (session, results, next) => {
-        if (session.conversationData.LicenseType == "Network") {
+        if (Data.conversationData.LicenseType == "Network") {
             session.beginDialog('GetNetworkLicense');
-        } else if (typeof session.conversationData.LicenseAction === 'undefined') {
+        } else if (typeof Data.conversationData.LicenseAction === 'undefined') {
             session.beginDialog('GetLicenseAction');
         }
         next();
     },
     (session, results, next) => {
-        if (session.conversationData.LicenseAction == "Activation") {
+        if (Data.conversationData.LicenseAction == "Activation") {
             session.beginDialog("ActivateLicense");
-        } else if (session.conversationData.LicenseAction == "Deactivation") {
+        } else if (Data.conversationData.LicenseAction == "Deactivation") {
             session.beginDialog("DeactivateLicense");
         } else {
             session.beginDialog("WhetherLicenseExpired");
@@ -59,7 +61,7 @@ module.exports.LicensingDialog = [
         }
     },
     (session, results) => {
-        if (session.conversationData.LicenseExpired == "Yes") {
+        if (Data.conversationData.LicenseExpired == "Yes") {
             session.beginDialog("ReactivateExpiredLicense");
         } else {
             session.beginDialog("ReactivateExpiringLicense");

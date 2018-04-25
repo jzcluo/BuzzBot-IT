@@ -5,6 +5,8 @@ const OS = require('./Enums').OPERATINGSYSTEM;
 const Levenshtein_Distance = require('./Util').Levenshtein_Distance;
 const GetClosestMatch = require('./Util').GetClosestMatch;
 
+const Data = require('./Data').Data;
+
 
 const InstallationDialogs = {
     [SOFTWARE.Matlab] : "InstallMatlab",
@@ -25,11 +27,11 @@ module.exports.InstallationDialog = [
                 console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'Software':
-                        session.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);                        session.save();
+                        Data.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);
                         session.save();
                         break;
                     case 'OS':
-                        session.userData.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);
+                        Data.userData.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);
                         session.save();
                         break;
                 }
@@ -38,29 +40,29 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results, next) => {
-        if (typeof session.conversationData.software === 'undefined') {
+        if (typeof Data.conversationData.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
         next();
     },
     (session, results, next) => {
-        if (typeof session.userData.OS === 'undefined') {
+        if (typeof Data.userData.OS === 'undefined') {
             session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
         next();
     },
     (session, results, next) => {
-        if (typeof session.conversationData["version"] === 'undefined') {
+        if (typeof Data.conversationData["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
         next();
     },
     (session, results, next) => {
         session.save();
-        session.send(`Let's help you install ${session.conversationData.software} version ${session.conversationData["version"]} on your ${session.userData.OS} machines!`);
+        session.send(`Let's help you install ${Data.conversationData.software} version ${Data.conversationData["version"]} on your ${Data.userData.OS} machines!`);
         //depends on what software the user wants to Install
         //start corresponding tutorial
-        session.beginDialog(InstallationDialogs[session.conversationData.software]);
+        session.beginDialog(InstallationDialogs[Data.conversationData.software]);
     }
 ]

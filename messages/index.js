@@ -38,11 +38,11 @@ bot.set('storage', cosmosStorage);
 
 const recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 recognizer.onEnabled((session, callback) => {
-    //session.conversationData.recognizerEnabled is a boolean flag
+    //Data.conversationData.recognizerEnabled is a boolean flag
     //that determines whether luis will be used
-    if (typeof session.conversationData.recognizerEnabled === 'undefined') {
+    if (typeof Data.conversationData.recognizerEnabled === 'undefined') {
         callback(null, true);
-    } else if (!session.conversationData.recognizerEnabled) {
+    } else if (!Data.conversationData.recognizerEnabled) {
         callback(null, false);
     } else {
         callback(null, true);
@@ -207,7 +207,7 @@ bot.dialog("Cancel", [
         //these two fields will be defined in every dialog
         //when user wants to cancel their currentDialog
         //start the last dialog
-        session.cancelDialog(0, 'Hi');//later the second parameter could be replaced with session.conversationData.lastDialog
+        session.cancelDialog(0, 'Hi');//later the second parameter could be replaced with Data.conversationData.lastDialog
     }
 ]).triggerAction({
     matches : 'Cancel'

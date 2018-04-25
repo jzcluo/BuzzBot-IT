@@ -3,7 +3,7 @@ const OS = require('../Enums').OPERATINGSYSTEM;
 const UNSUPPORTED_VERSIONS_WINDOWS = require('../Enums').UNSUPPORTED_VERSIONS_WINDOWS;
 const UNSUPPORTED_VERSIONS_MAC = require('../Enums').UNSUPPORTED_VERSIONS_MAC;
 const UNSUPPORTED_VERSIONS_LINUX = require('../Enums').UNSUPPORTED_VERSIONS_LINUX;
-
+const Data = require('../Data').Data;
 
 
 //To start a dialog, look up the dialog name with the type of OS
@@ -17,7 +17,7 @@ const InstallMatlabDialogs = {
 //prompt user here if missing any information
 module.exports.InstallMatlab = [
     (session, args, next) => {
-        if (typeof session.userData.OS === 'undefined') {
+        if (typeof Data.userData.OS === 'undefined') {
             session.beginDialog('GetOSInfo');
         } else {
             next();
@@ -25,14 +25,14 @@ module.exports.InstallMatlab = [
     },
     (session, results, next) => {
         //starts the dialog that corresponds to the user's operating system
-        session.beginDialog(InstallMatlabDialogs[session.userData.OS]);
+        session.beginDialog(InstallMatlabDialogs[Data.userData.OS]);
     }
 ]
 
 module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
-        if (session.conversationData["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
-            session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[session.conversationData["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
+        if (Data.conversationData["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
+            session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[Data.conversationData["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
             let choiceList = ["Yes", "No"];
             let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
             builder.Prompts.choice(session, suggestedActions, choiceList);
