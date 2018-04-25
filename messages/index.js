@@ -7,6 +7,7 @@ if (process.env.NODE_ENV == "development") {
 }
 
 var useEmulator = (process.env.NODE_ENV == 'development');
+const Data = require('./dialogs/Data').Data;
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
