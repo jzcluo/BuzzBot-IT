@@ -4,7 +4,7 @@ const ConversationLog = require('./Util').ConversationLog;
 
 module.exports.SendEmail = [
     (session, args, next) => {
-        //sendIssueLog(session);
+        sendIssueLog(session);
         session.endDialog("Sorry about that. I have sent this conversation log to my boss.");
     }
 ];
