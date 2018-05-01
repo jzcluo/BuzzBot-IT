@@ -6,8 +6,7 @@
   "dependencies": {
     "botbuilder": "^3.13.1",
     "botbuilder-azure": "^3.0.4",
-    "nodemailer": "^4.6.4",
-    "superagent": "^3.8.3"
+    "nodemailer": "^4.6.4"
   },
   "devDependencies": {
     "restify": "^5.0.0"

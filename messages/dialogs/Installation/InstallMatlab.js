@@ -4,8 +4,6 @@ const UNSUPPORTED_VERSIONS_WINDOWS = require('../Enums').UNSUPPORTED_VERSIONS_WI
 const UNSUPPORTED_VERSIONS_MAC = require('../Enums').UNSUPPORTED_VERSIONS_MAC;
 const UNSUPPORTED_VERSIONS_LINUX = require('../Enums').UNSUPPORTED_VERSIONS_LINUX;
 const Data = require('../Data').Data;
-const SuggestedActionsMessage = require('../Util').SuggestedActionsMessage;
-
 
 
 //To start a dialog, look up the dialog name with the type of OS

@@ -108,14 +108,9 @@ const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWor
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
 
 const EmailLog = require('./dialogs/Email');
-const Search = require('./dialogs/Search');
 
 bot.dialog('Email', EmailLog.SendEmail).triggerAction({
     matches : 'Debug'
-});
-
-bot.dialog('Search', Search.SearchDialog).triggerAction({
-    matches : 'Search'
 });
 
 bot.dialog('Hi', HiDialog).triggerAction({
