@@ -58,15 +58,15 @@ module.exports.GetOSInfo = [
         Data.conversationData.recognizerEnabled = false;
         session.save();
         let choiceList = Object.keys(OS);
-        session.send("what");
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
-        session.send("ahahh");
-        builder.Prompts.choice(session, suggestedActions, choiceList);
+        //builder.Prompts.choice(session, suggestedActions, choiceList);
+        builder.Prompts.choice(session, "What operating system are you using?", choiceList, {listStyle : builder.ListStyle.button});
+
     },
     (session, results, next) => {
-        session.send("yeahh");
         session.send(results.response.entity);
-        session.send(JSON.stringify(results));
+        //session.send(JSON.stringify(results));
+        console.log(results);
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
             Data.userData.OS = results.response.entity;
@@ -74,7 +74,7 @@ module.exports.GetOSInfo = [
         }
         Data.conversationData.recognizerEnabled = true;
         session.save();
-        session.send("out a here");
+        //session.send("out a here");
         session.endDialog();
     }
 ]
