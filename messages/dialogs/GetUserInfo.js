@@ -59,23 +59,15 @@ module.exports.GetOSInfo = [
         //session.save();
         let choiceList = Object.keys(OS);
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
-        //builder.Prompts.choice(session, suggestedActions, choiceList);
-        builder.Prompts.choice(session, "What operating system are you using?", choiceList, {listStyle : builder.ListStyle.button});
-
+        builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
-        session.send(results.response.entity);
-        //session.send(JSON.stringify(results));
-        console.log(results);
         if (results.response && results.response.entity) {
-            console.log(results.response.entity);
             Data.userData.OS = results.response.entity;
             //session.save();
         }
         Data.conversationData.recognizerEnabled = true;
         //session.save();
-        //
-        session.send("out a here");
         session.endDialog();
     }
 ]

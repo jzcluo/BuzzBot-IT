@@ -47,19 +47,15 @@ module.exports.InstallationDialog = [
     },
     (session, results, next) => {
         if (typeof Data.userData.OS === 'undefined') {
-            session.send("I need a little more information before recommending a MATLAB version for you");
+            //session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
         next();
     },
     (session, results, next) => {
-        //session.send("before get version");
         if (typeof Data.conversationData["version"] === 'undefined') {
-            //session.send("about to get version");
             session.beginDialog('GetVersionInfo');
         }
-        //session.send("got version");
-        //session.send(JSON.stringify(Data));
         next();
     },
     (session, results, next) => {
