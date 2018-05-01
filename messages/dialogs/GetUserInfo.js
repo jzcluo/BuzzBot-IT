@@ -57,8 +57,8 @@ module.exports.GetOSInfo = [
         //session.save();
         Data.conversationData.recognizerEnabled = false;
         session.save();
-        console.log(Data.conversationData.recognizerEnabled);
         let choiceList = Object.keys(OS);
+        session.send("what");
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
         session.send("ahahh");
         session.send(suggestedActions);
