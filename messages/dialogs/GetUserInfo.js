@@ -64,7 +64,6 @@ module.exports.GetOSInfo = [
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
-        console.log(results);
         session.send("yeahh");
         session.send(results.response.entity);
         session.send(JSON.stringify(results));
