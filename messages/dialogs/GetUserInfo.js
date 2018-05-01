@@ -61,7 +61,8 @@ module.exports.GetOSInfo = [
         let choiceList = Object.keys(OS);
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
         session.send("ahahh");
-        builder.Prompts.choice(session, suggestedActions, choiceList);
+        session.send(suggestedActions);
+        //builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         session.send("yeahh");
