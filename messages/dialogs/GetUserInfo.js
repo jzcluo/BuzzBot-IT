@@ -12,9 +12,9 @@ module.exports.GetSoftwareInfo = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         //list of software names
         let choiceList = Object.keys(SOFTWARE);
         //add in the option of other
@@ -32,7 +32,7 @@ module.exports.GetSoftwareInfo = [
                 Data.conversationData.software = results.response.entity;
                 //reenable luis recognizer
                 Data.conversationData.recognizerEnabled = true;
-                session.save();
+                //session.save();
                 session.endDialog();
             }
         }
@@ -43,7 +43,7 @@ module.exports.GetSoftwareInfo = [
             Data.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), results.response);
             //reenable luis recognizer
             Data.conversationData.recognizerEnabled = true;
-            session.save();
+            //session.save();
         }
         session.endDialog();
     }
@@ -54,9 +54,9 @@ module.exports.GetOSInfo = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         let choiceList = Object.keys(OS);
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
         //builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -70,11 +70,12 @@ module.exports.GetOSInfo = [
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
             Data.userData.OS = results.response.entity;
-            session.save();
+            //session.save();
         }
         Data.conversationData.recognizerEnabled = true;
-        session.save();
-        //session.send("out a here");
+        //session.save();
+        //
+        session.send("out a here");
         session.endDialog();
     }
 ]
@@ -83,9 +84,9 @@ module.exports.GetVersionInfo = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
 
         //make a clone of VERSION and modify it
         let version = Object.assign({}, VERSION);
@@ -120,10 +121,10 @@ module.exports.GetVersionInfo = [
             console.log(results.response.entity);
             Data.conversationData["version"] = results.response.entity.split(" ")[0];
             console.log(Data.conversationData);
-            session.save();
+            //session.save();
         }
         Data.conversationData.recognizerEnabled = true;
-        session.save();
+        //session.save();
         session.endDialog();
     }
 ]
@@ -132,9 +133,9 @@ module.exports.GetLicenseType = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSETYPE);
         choiceList.push("Not Sure");
@@ -149,7 +150,7 @@ module.exports.GetLicenseType = [
                 next();
             } else {
                 Data.conversationData.LicenseType = results.response.entity;
-                session.save();
+                //session.save();
                 Data.conversationData.recognizerEnabled = true;
                 session.endDialog();
             }
@@ -159,9 +160,9 @@ module.exports.GetLicenseType = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let suggestedActions = SuggestedActionsMessage(session, "Are you a students, faculty, and staff trying to install on a personal machine or Georgia Tech laptop?", ["Yes", "No"])
         builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
@@ -171,7 +172,7 @@ module.exports.GetLicenseType = [
             if (results.response.entity == "Yes") {
                 Data.conversationData.LicenseType = "Individual";
                 Data.conversationData.recognizerEnabled = true;
-                session.save();
+                //session.save();
                 session.endDialog();
             } else {
                 next();
@@ -182,9 +183,9 @@ module.exports.GetLicenseType = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let suggestedActions = SuggestedActionsMessage(session, "Are you trying to install on a Georgia Tech system such as office desktop, lab workstation, classroom, server or a computer lab", ["Yes", "No"])
         builder.Prompts.choice(session, suggestedActions, ["Yes", "No"], {listStyle : builder.ListStyle.button});
@@ -194,7 +195,7 @@ module.exports.GetLicenseType = [
             if (results.response.entity == "Yes") {
                 Data.conversationData.LicenseType = "Network";
                 Data.conversationData.recognizerEnabled = true;
-                session.save();
+                //session.save();
             } else {
                 session.endConversation("Sorry, Please contact support");
             }
@@ -208,9 +209,9 @@ module.exports.GetLicenseAction = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let choiceList = Object.keys(LICENSEACTION);
         choiceList.push("Not Sure");
@@ -224,7 +225,7 @@ module.exports.GetLicenseAction = [
                 next();
             } else {
                 Data.conversationData.LicenseAction = results.response.entity;
-                session.save();
+                //session.save();
                 Data.conversationData.recognizerEnabled = true;
                 session.endDialog();
             }
@@ -234,9 +235,9 @@ module.exports.GetLicenseAction = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let suggestedActions = SuggestedActionsMessage(session, "Are you trying to get a new license?", ["Yes", "No"])
         builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
@@ -246,7 +247,7 @@ module.exports.GetLicenseAction = [
             if (results.response.entity == "Yes") {
                 Data.conversationData.LicenseAction = "Activation";
                 Data.conversationData.recognizerEnabled = true;
-                session.save();
+                //session.save();
                 session.endDialog();
             } else {
                 next();
@@ -257,9 +258,9 @@ module.exports.GetLicenseAction = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let suggestedActions = SuggestedActionsMessage(session, "Is it your first time trying to get a license?", ["Yes", "No"]);
         builder.Prompts.choice(session, suggestedActions, ["Yes", "No"]);
@@ -269,7 +270,7 @@ module.exports.GetLicenseAction = [
             if (results.response.entity == "Yes") {
                 Data.conversationData.LicenseAction = "Network";
                 Data.conversationData.recognizerEnabled = true;
-                session.save();
+                //session.save();
             } else {
                 session.endConversation("Sorry, Please contact support");
             }
@@ -283,9 +284,9 @@ module.exports.WhetherLicenseExpired = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         //Data.conversationData.recognizerEnabled = false;
-        //session.save();
+        ////session.save();
         Data.conversationData.recognizerEnabled = false;
-        session.save();
+        //session.save();
         console.log(Data.conversationData.recognizerEnabled);
         let choiceList = ["Yes", "No"];
         let suggestedActions = SuggestedActionsMessage(session, "If your license currently expired?", choiceList);
@@ -295,10 +296,10 @@ module.exports.WhetherLicenseExpired = [
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
             Data.conversationData.LicenseExpired = results.response.entity;
-            session.save();
+            //session.save();
         }
         Data.conversationData.recognizerEnabled = true;
-        session.save();
+        //session.save();
         session.endDialog();
     }
 ]
