@@ -64,6 +64,7 @@ module.exports.GetOSInfo = [
     },
     (session, results, next) => {
         console.log(results);
+        session.send(JSON.stringify(results));
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
             Data.userData.OS = results.response.entity;
@@ -71,6 +72,7 @@ module.exports.GetOSInfo = [
         }
         Data.conversationData.recognizerEnabled = true;
         session.save();
+        session.send("out a here");
         session.endDialog();
     }
 ]
