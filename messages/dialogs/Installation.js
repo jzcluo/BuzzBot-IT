@@ -53,12 +53,17 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results, next) => {
+        session.send("before get version");
         if (typeof Data.conversationData["version"] === 'undefined') {
+            session.send("about to get version");
             session.beginDialog('GetVersionInfo');
         }
+        session.send("got version");
+        session.send(JSON.stringify(Data));
         next();
     },
     (session, results, next) => {
+        session.send("next step");
         session.save();
         session.send(`Let's help you install ${Data.conversationData.software} version ${Data.conversationData["version"]} on your ${Data.userData.OS} machines!`);
         //depends on what software the user wants to Install

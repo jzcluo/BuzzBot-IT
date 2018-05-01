@@ -63,6 +63,7 @@ module.exports.GetOSInfo = [
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
+        console.log(results);
         if (results.response && results.response.entity) {
             console.log(results.response.entity);
             Data.userData.OS = results.response.entity;
