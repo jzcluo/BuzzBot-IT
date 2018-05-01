@@ -24,7 +24,7 @@ module.exports.SearchDialog = [
 
 const search = function(session, question) {
     let url = process.env.CUSTOM_SEARCH_API;
-    question = question.split(",").join("+")
+    question = question.split(",").join("+");
 
     request.get(url+question)
         .then((res) => {
