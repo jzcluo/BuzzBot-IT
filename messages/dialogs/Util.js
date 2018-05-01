@@ -9,7 +9,7 @@ const SuggestedActionsMessage = function (session, text, choices) {
     //parameters that follow it are the choices
     let choiceArray = [];
     for (let i = 0; i < choices.length; i++) {
-        choiceArray.push(new builder.CardAction.imBack(session, choices[i], choices[i]));
+        choiceArray.push(new builder.CardAction.postBack(session, choices[i], choices[i]));
     }
 
     let message;
