@@ -61,13 +61,15 @@ module.exports.GetOSInfo = [
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
-    (session, results, next) => {
+    (session, results) => {
         //if (results.response) {
         Data.userData.OS = results.response.entity;
             //session.save();
         //}
         //Data.conversationData.recognizerEnabled = true;
         //session.save();
+        session.send("nice");
+        session.send(results);
         session.endDialog();
     }
 ]
