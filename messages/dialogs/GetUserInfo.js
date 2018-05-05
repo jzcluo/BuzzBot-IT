@@ -7,6 +7,7 @@ const VERSION = require('./Enums').VERSION;
 const LICENSETYPE = require('./Enums').LICENSETYPE;
 const LICENSEACTION = require('./Enums').LICENSEACTION;
 const Data = require('./Data').Data;
+const SetOSData = require('./Data').SetOSData;
 
 module.exports.GetSoftwareInfo = [
     (session, args, next) => {
@@ -61,7 +62,7 @@ module.exports.GetOSInfo = [
     },
     (session, results) => {
         if (results.response && results.response.entity) {
-            Data.OS = results.response.entity;
+            SetOSData(session.message.user.id, results.response.entity);
         }
         Data.recognizerEnabled = true;
         session.endDialog();
