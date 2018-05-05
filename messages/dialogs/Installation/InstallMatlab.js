@@ -18,7 +18,7 @@ const InstallMatlabDialogs = {
 //prompt user here if missing any information
 module.exports.InstallMatlab = [
     (session, args, next) => {
-        if (typeof Data.userData.OS === 'undefined') {
+        if (typeof Data.OS === 'undefined') {
             session.beginDialog('GetOSInfo');
         } else {
             next();
@@ -26,14 +26,14 @@ module.exports.InstallMatlab = [
     },
     (session, results, next) => {
         //starts the dialog that corresponds to the user's operating system
-        session.beginDialog(InstallMatlabDialogs[Data.userData.OS]);
+        session.beginDialog(InstallMatlabDialogs[Data.OS]);
     }
 ]
 
 module.exports.InstallMatlab_Windows = [
     (session, args, next) => {
-        if (Data.conversationData["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
-            session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[Data.conversationData["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
+        if (Data["version"] in UNSUPPORTED_VERSIONS_WINDOWS) {
+            session.send(`Note that if your operating system is ${UNSUPPORTED_VERSIONS_WINDOWS[Data["version"]].join(" or ")}, this version of Matlab you are trying to install is not supported.`)
             let choiceList = ["Yes", "No"];
             let suggestedActions = SuggestedActionsMessage(session, "Continue?", choiceList);
             builder.Prompts.choice(session, suggestedActions, choiceList);

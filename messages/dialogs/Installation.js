@@ -27,11 +27,11 @@ module.exports.InstallationDialog = [
                 console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'Software':
-                        Data.conversationData.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);
+                        Data.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);
                         session.save();
                         break;
                     case 'OS':
-                        Data.userData.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);
+                        Data.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);
                         session.save();
                         break;
                 }
@@ -40,20 +40,20 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results, next) => {
-        if (typeof Data.conversationData.software === 'undefined') {
+        if (typeof Data.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
         next();
     },
     (session, results, next) => {
-        if (typeof Data.userData.OS === 'undefined') {
+        if (typeof Data.OS === 'undefined') {
             //session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
         next();
     },
     (session, results, next) => {
-        if (typeof Data.conversationData["version"] === 'undefined') {
+        if (typeof Data["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
         next();
@@ -61,9 +61,9 @@ module.exports.InstallationDialog = [
     (session, results, next) => {
         session.send("next step");
         session.save();
-        session.send(`Let's help you install ${Data.conversationData.software} version ${Data.conversationData["version"]} on your ${Data.userData.OS} machines!`);
+        session.send(`Let's help you install ${Data.software} version ${Data["version"]} on your ${Data.OS} machines!`);
         //depends on what software the user wants to Install
         //start corresponding tutorial
-        session.beginDialog(InstallationDialogs[Data.conversationData.software]);
+        session.beginDialog(InstallationDialogs[Data.software]);
     }
 ]

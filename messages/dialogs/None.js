@@ -43,8 +43,8 @@ module.exports = [
                 case 'Reset' :
                     //set empty and call save
                     //https://docs.microsoft.com/en-us/bot-framework/nodejs/bot-builder-nodejs-state
-                    session.userData = {};
-                    //session.conversationData = {};
+                    session = {};
+                    //session = {};
                     //session.dialogData = {};
                     session.save();
                     session.endDialog('Your data in this bot has been cleared');

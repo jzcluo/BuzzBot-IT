@@ -20,40 +20,40 @@ module.exports.LicensingDialog = [
                 console.log(entityObject.type);
                 switch (entityObject.type) {
                     case 'LicenseAction':
-                        Data.conversationData.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
+                        Data.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
                         session.save();
                         break;
                     case 'LicenseType':
-                        Data.conversationData.LicenseType = GetClosestMatch(Object.keys(LICENSETYPE), entityObject.entity);
+                        Data.LicenseType = GetClosestMatch(Object.keys(LICENSETYPE), entityObject.entity);
                         session.save();
                         break;
                 }
             }
             //it has to be individual license because only individual license has reactivation and deactivation process
-            if (Data.conversationData.LicenseAction == "Deactivation" || Data.conversationData.LicenseAction == "Reactivation") {
-                Data.conversationData.LicenseType = "Individual";
+            if (Data.LicenseAction == "Deactivation" || Data.LicenseAction == "Reactivation") {
+                Data.LicenseType = "Individual";
             }
         }
         next();
     },
     (session, results, next) => {
-        if (typeof Data.conversationData.LicenseType === 'undefined') {
+        if (typeof Data.LicenseType === 'undefined') {
             session.beginDialog('GetLicenseType');
         }
         next();
     },
     (session, results, next) => {
-        if (Data.conversationData.LicenseType == "Network") {
+        if (Data.LicenseType == "Network") {
             session.beginDialog('GetNetworkLicense');
-        } else if (typeof Data.conversationData.LicenseAction === 'undefined') {
+        } else if (typeof Data.LicenseAction === 'undefined') {
             session.beginDialog('GetLicenseAction');
         }
         next();
     },
     (session, results, next) => {
-        if (Data.conversationData.LicenseAction == "Activation") {
+        if (Data.LicenseAction == "Activation") {
             session.beginDialog("ActivateLicense");
-        } else if (Data.conversationData.LicenseAction == "Deactivation") {
+        } else if (Data.LicenseAction == "Deactivation") {
             session.beginDialog("DeactivateLicense");
         } else {
             session.beginDialog("WhetherLicenseExpired");
@@ -61,7 +61,7 @@ module.exports.LicensingDialog = [
         }
     },
     (session, results) => {
-        if (Data.conversationData.LicenseExpired == "Yes") {
+        if (Data.LicenseExpired == "Yes") {
             session.beginDialog("ReactivateExpiredLicense");
         } else {
             session.beginDialog("ReactivateExpiringLicense");

@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
+//if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-}
+//}
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 const Data = require('./dialogs/Data').Data;
@@ -39,11 +39,11 @@ bot.set('storage', cosmosStorage);
 
 const recognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL);
 recognizer.onEnabled((session, callback) => {
-    //Data.conversationData.recognizerEnabled is a boolean flag
+    //Data.recognizerEnabled is a boolean flag
     //that determines whether luis will be used
-    if (typeof Data.conversationData.recognizerEnabled === 'undefined') {
+    if (typeof Data.recognizerEnabled === 'undefined') {
         callback(null, true);
-    } else if (!Data.conversationData.recognizerEnabled) {
+    } else if (!Data.recognizerEnabled) {
         callback(null, false);
     } else {
         callback(null, true);
@@ -208,7 +208,7 @@ bot.dialog("Cancel", [
         //these two fields will be defined in every dialog
         //when user wants to cancel their currentDialog
         //start the last dialog
-        session.cancelDialog(0, 'Hi');//later the second parameter could be replaced with Data.conversationData.lastDialog
+        session.cancelDialog(0, 'Hi');//later the second parameter could be replaced with Data.lastDialog
     }
 ]).triggerAction({
     matches : 'Cancel'
