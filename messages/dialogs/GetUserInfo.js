@@ -63,7 +63,7 @@ module.exports.GetOSInfo = [
     },
     (session, results) => {
         //if (results.response) {
-        Data.userData.OS = results.response.entity;
+        Data.conversationData.OS = results.response.entity;
             //session.save();
         //}
         //Data.conversationData.recognizerEnabled = true;
