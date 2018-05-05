@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-//if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV == "development") {
     require('dotenv').config();
-//}
+}
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 const Data = require('./dialogs/Data').Data;
