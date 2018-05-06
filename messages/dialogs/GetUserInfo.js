@@ -75,7 +75,7 @@ module.exports.GetVersionInfo = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
         Data.recognizerEnabled = false;
-
+        session.send("in version");
         //make a clone of VERSION and modify it
         let version = Object.assign({}, VERSION);
 
