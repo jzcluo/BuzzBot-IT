@@ -2,7 +2,7 @@
 //     db : {}
 // };
 module.exports.Data = {
-    db : {}
+    conversationData : {}
 };
 
 const SetOSData = function (id, OS) {

@@ -2,7 +2,7 @@ const builder = require('botbuilder');
 const GetClosestMatch = require('./Util').GetClosestMatch;
 const SuggestedActionsMessage = require('./Util').SuggestedActionsMessage;
 const SOFTWARE = require('./Enums').SOFTWARE;
-const OS = require('./Enums').OPERATINGSYSTEM;
+const OPERATINGSYSTEM = require('./Enums').OPERATINGSYSTEM;
 const VERSION = require('./Enums').VERSION;
 const LICENSETYPE = require('./Enums').LICENSETYPE;
 const LICENSEACTION = require('./Enums').LICENSEACTION;
@@ -56,14 +56,14 @@ module.exports.GetOSInfo = [
         //temperarily disable luis recognizer so user can decide to type info
         //Data.recognizerEnabled = false;
 
-        let choiceList = Object.keys(OS);
+        let choiceList = Object.keys(OPERATINGSYSTEM);
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results) => {
         //if (results.response && results.response.entity) {
         session.send("hi1");
-        Data.conversationData.OS = results.response.entity;
+        Data.OS = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
         //}
         session.send("hi2");
@@ -82,15 +82,15 @@ module.exports.GetVersionInfo = [
 
         let hint = "";
 
-        if (Data.db.OS == "Windows") {
+        if (Data.OS == "Windows") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting Windows 8)";
             hint = 'You can find you version number by typing "about" in the search box on your taskbar, and then select About your PC.';
-        } else if (Data.db.OS == "MacOS") {
+        } else if (Data.OS == "MacOS") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting MacOS-X Yosemite)";
             hint = 'You can find you version number by clicking on the Apple icon in the top left corner of your screen. From there, you can click "About this Mac".';
-        } else if (Data.db.OS == "Linux") {
+        } else if (Data.OS == "Linux") {
             version["R2017b"] += " (Recommended)";
             version["R2017a"] += " (Not supporting Debian 7)";
             hint = "To find out what distribution of linux your running (Ex. Ubuntu) try lsb_release -a or cat /etc/*release or cat /etc/issue* or cat /proc/version."
