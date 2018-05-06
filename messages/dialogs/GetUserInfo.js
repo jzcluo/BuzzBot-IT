@@ -67,7 +67,7 @@ module.exports.GetOSInfo = [
         //}
         session.send("hi2");
         //Data.recognizerEnabled = true;
-        //session.endDialog();
+        session.endDialog("Thanks");
     }
 ]
 
