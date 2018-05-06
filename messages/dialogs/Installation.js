@@ -48,9 +48,10 @@ module.exports.InstallationDialog = [
             session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
-        next();
+        //next();
     },
     (session, results, next) => {
+        session.send("here");
         if (typeof Data["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
