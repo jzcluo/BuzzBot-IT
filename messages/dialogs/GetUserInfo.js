@@ -63,7 +63,7 @@ module.exports.GetOSInfo = [
     (session, results) => {
         //if (results.response && results.response.entity) {
         session.send("hi1");
-        Data.OS = results.response.entity;
+        Data.US = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
         //}
         session.send("hi2");
