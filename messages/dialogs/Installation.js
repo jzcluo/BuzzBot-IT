@@ -35,26 +35,29 @@ module.exports.InstallationDialog = [
                 }
             }
         }
+        next();
     },
     (session, results, next) => {
         if (typeof Data.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
+        next();
     },
     (session, results, next) => {
         if (typeof Data.OS === 'undefined') {
             session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
-        //next();
+        next();
     },
     (session, results, next) => {
         session.send("here");
         if (typeof Data["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
+        next();
     },
-    (session, results, next) => {
+    (session, results) => {
         session.send(`Let's help you install ${Data.software} version ${Data["version"]} on your ${Data.OS} machines!`);
         //depends on what software the user wants to Install
         //start corresponding tutorial
