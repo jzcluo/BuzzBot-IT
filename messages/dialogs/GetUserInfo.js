@@ -54,7 +54,7 @@ module.exports.GetSoftwareInfo = [
 module.exports.GetOSInfo = [
     (session, args, next) => {
         //temperarily disable luis recognizer so user can decide to type info
-        Data.recognizerEnabled = false;
+        //Data.recognizerEnabled = false;
 
         let choiceList = Object.keys(OS);
         let suggestedActions = SuggestedActionsMessage(session, "What operating system are you using", choiceList);
@@ -65,7 +65,7 @@ module.exports.GetOSInfo = [
         Data.db.OS = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
         //}
-        Data.recognizerEnabled = true;
+        //Data.recognizerEnabled = true;
         session.endDialog();
     }
 ]
