@@ -62,9 +62,11 @@ module.exports.GetOSInfo = [
     },
     (session, results) => {
         //if (results.response && results.response.entity) {
+        session.send("hi1");
         Data.db.OS = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
         //}
+        session.send("hi2");
         //Data.recognizerEnabled = true;
         session.endDialog();
     }
