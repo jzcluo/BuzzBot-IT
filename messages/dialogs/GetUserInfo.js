@@ -62,10 +62,7 @@ module.exports.GetOSInfo = [
     },
     (session, results) => {
         //if (results.response && results.response.entity) {
-        session.send("hi1");
         Data.os = results.response.entity;
-        //}
-        session.send("hi2");
         //Data.recognizerEnabled = true;
         session.endDialog("Thanks");
     }
@@ -101,18 +98,14 @@ module.exports.GetVersionInfo = [
 
         let choiceList = Object.values(version);
         let suggestedActions = SuggestedActionsMessage(session, "What version of matlab are you trying to download? " + hint, choiceList);
-
+        
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results, next) => {
         if (results.response && results.response.entity) {
-            console.log(results.response.entity);
             Data["version"] = results.response.entity.split(" ")[0];
-            console.log(Data);
-            //session.save();
         }
         Data.recognizerEnabled = true;
-        //session.save();
         session.endDialog();
     }
 ]

@@ -35,13 +35,11 @@ module.exports.InstallationDialog = [
                 }
             }
         }
-        next();
     },
     (session, results, next) => {
         if (typeof Data.software === 'undefined') {
             session.beginDialog('GetSoftwareInfo');
         }
-        next();
     },
     (session, results, next) => {
         if (typeof Data.OS === 'undefined') {
@@ -55,7 +53,6 @@ module.exports.InstallationDialog = [
         if (typeof Data["version"] === 'undefined') {
             session.beginDialog('GetVersionInfo');
         }
-        next();
     },
     (session, results, next) => {
         session.send(`Let's help you install ${Data.software} version ${Data["version"]} on your ${Data.OS} machines!`);
