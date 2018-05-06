@@ -92,11 +92,11 @@ module.exports.GetVersionInfo = [
         } else if (Data.os == "Linux") {
             version["R2017b"] += " (Recommended)";
             version["R2017a"] += " (Not supporting Debian 7)";
-            hint = "To find out what distribution of linux your running (Ex. Ubuntu) try lsb_release -a or cat /etc/*release or cat /etc/issue* or cat /proc/version."
+            hint = "To find out what distribution of linux your running (Ex. Ubuntu) try lsb_release -a or cat /etc/*release or cat /etc/issue* or cat /proc/version.";
         }
 
         version["R2018a"] += " (Beta version)";
-
+        session.send("got after version");
 
 
         let choiceList = Object.values(version);
