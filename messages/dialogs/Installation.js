@@ -30,7 +30,7 @@ module.exports.InstallationDialog = [
                         Data.software = GetClosestMatch(Object.keys(SOFTWARE), entityObject.entity);
                         break;
                     case 'OS':
-                        Data.OS = GetClosestMatch(Object.keys(OS), entityObject.entity);
+                        Data.os = GetClosestMatch(Object.keys(OS), entityObject.entity);
                         break;
                 }
             }
@@ -44,7 +44,7 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results, next) => {
-        if (typeof Data.OS === 'undefined') {
+        if (typeof Data.os === 'undefined') {
             session.send("I need a little more information before recommending a MATLAB version for you");
             session.beginDialog('GetOSInfo');
         }
@@ -58,7 +58,7 @@ module.exports.InstallationDialog = [
         next();
     },
     (session, results) => {
-        session.send(`Let's help you install ${Data.software} version ${Data["version"]} on your ${Data.OS} machines!`);
+        session.send(`Let's help you install ${Data.software} version ${Data["version"]} on your ${Data.os} machines!`);
         //depends on what software the user wants to Install
         //start corresponding tutorial
         session.beginDialog(InstallationDialogs[Data.software]);
