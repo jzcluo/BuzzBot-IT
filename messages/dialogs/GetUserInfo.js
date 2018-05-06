@@ -64,7 +64,6 @@ module.exports.GetOSInfo = [
         //if (results.response && results.response.entity) {
         session.send("hi1");
         Data.US = results.response.entity;
-            //SetOS(session.message.user.id, results.response.entity);
         //}
         session.send("hi2");
         //Data.recognizerEnabled = true;
