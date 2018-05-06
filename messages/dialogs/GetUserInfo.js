@@ -63,7 +63,7 @@ module.exports.GetOSInfo = [
     (session, results) => {
         //if (results.response && results.response.entity) {
         session.send("hi1");
-        Data.db.OS = results.response.entity;
+        Data.conversationData.OS = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
         //}
         session.send("hi2");
@@ -82,15 +82,15 @@ module.exports.GetVersionInfo = [
 
         let hint = "";
 
-        if (Data.OS == "Windows") {
+        if (Data.db.OS == "Windows") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting Windows 8)";
             hint = 'You can find you version number by typing "about" in the search box on your taskbar, and then select About your PC.';
-        } else if (Data.OS == "MacOS") {
+        } else if (Data.db.OS == "MacOS") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting MacOS-X Yosemite)";
             hint = 'You can find you version number by clicking on the Apple icon in the top left corner of your screen. From there, you can click "About this Mac".';
-        } else if (Data.OS == "Linux") {
+        } else if (Data.db.OS == "Linux") {
             version["R2017b"] += " (Recommended)";
             version["R2017a"] += " (Not supporting Debian 7)";
             hint = "To find out what distribution of linux your running (Ex. Ubuntu) try lsb_release -a or cat /etc/*release or cat /etc/issue* or cat /proc/version."
