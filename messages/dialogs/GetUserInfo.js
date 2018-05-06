@@ -80,7 +80,7 @@ module.exports.GetVersionInfo = [
         let version = Object.assign({}, VERSION);
 
         let hint = "";
-
+        session.send(Data.os);
         if (Data.os == "Windows") {
             version["R2017a"] += " (Recommended)";
             version["R2017b"] += " (Not supporting Windows 8)";
