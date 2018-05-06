@@ -61,10 +61,10 @@ module.exports.GetOSInfo = [
         builder.Prompts.choice(session, suggestedActions, choiceList);
     },
     (session, results) => {
-        if (results.response && results.response.entity) {
-            Data.db.OS = results.response.entity;
+        //if (results.response && results.response.entity) {
+        Data.db.OS = results.response.entity;
             //SetOS(session.message.user.id, results.response.entity);
-        }
+        //}
         Data.recognizerEnabled = true;
         session.endDialog();
     }
