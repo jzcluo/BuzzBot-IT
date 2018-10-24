@@ -1,0 +1,15 @@
+{
+    "name": "buzzit",
+    "services": [
+        {
+            "type": "endpoint",
+            "name": "buzzit",
+            "endpoint": "http://localhost:3978/api/messages",
+            "appId": "",
+            "appPassword": "",
+            "id": "1"
+        }
+    ],
+    "padlock": "",
+    "version": "1.0"
+}

@@ -36,9 +36,8 @@ module.exports = [
          the president jokingly indicated that he was supposed to be introduced by George P. Burdell, but no one could find George.`);
       let message = new builder.Message(session).addAttachment(thumbnailCard);
       session.send(message)
-    } else {
-      session.endDialog();
-      session.beginDialog('Hi');
-    }
+    }      
+    session.endDialog();
+    session.beginDialog('Hi');
   }
 ]
