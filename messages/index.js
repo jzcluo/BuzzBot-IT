@@ -2,9 +2,9 @@
 const builder = require("botbuilder");
 const botbuilder_azure = require("botbuilder-azure");
 const path = require('path');
-if (process.env.NODE_ENV == "development") {
-    require('dotenv').config();
-}
+//if (process.env.NODE_ENV == "development") {
+require('dotenv').config();
+//}
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 const Data = require('./dialogs/Data').Data;
@@ -88,6 +88,7 @@ if (useEmulator) {
 const HiDialog = require('./dialogs/Hi');
 const HelpDialog = require('./dialogs/Help');
 const BackDialog = require('./dialogs/Back');
+const GeorgePBurdellDialog = require('./dialogs/GeorgePDurdell');
 
 //Installation related files
 const InstallaionDialog = require('./dialogs/Installation');
@@ -106,7 +107,6 @@ const DeactivateLicense = require('./dialogs/License/IndividualLicense/Deactivat
 const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWorksAccount');
 
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
-
 const EmailLog = require('./dialogs/Email');
 
 bot.dialog('Email', EmailLog.SendEmail).triggerAction({
@@ -116,6 +116,7 @@ bot.dialog('Email', EmailLog.SendEmail).triggerAction({
 bot.dialog('Hi', HiDialog).triggerAction({
     matches : 'Hi'
 });
+
 //called when a user is added to the conversationUpdate
 //https://stackoverflow.com/questions/42353337/is-it-possible-to-detect-when-a-user-opens-the-chat-window-on-facebook/42353957
 bot.on('conversationUpdate', (message) => {
@@ -200,6 +201,10 @@ bot.dialog("WhetherLicenseExpired", GetUserInfoDialog.WhetherLicenseExpired);
 
 bot.dialog("Help", HelpDialog).triggerAction({
     matches : 'Help'
+});
+
+bot.dialog('GeorgePBurdell', GeorgePBurdellDialog).triggerAction({
+    matches: 'George'
 });
 
 //cancel dialog that returns to the dialog before current dialog
