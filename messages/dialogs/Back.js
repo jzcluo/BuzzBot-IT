@@ -1,4 +1,4 @@
-const builder = require('botbuilder');
+const builder = require("botbuilder");
 
 module.exports = [
   (session, args, next) => {
@@ -26,4 +26,4 @@ module.exports = [
 
     session.endDialog();
   }
-]
+];

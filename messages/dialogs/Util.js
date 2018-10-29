@@ -1,29 +1,33 @@
-const builder = require('botbuilder');
+const builder = require("botbuilder");
 
 module.exports.ConversationLog = {
   log: ""
-}
+};
 
-const SuggestedActionsMessage = function (session, text, choices) {
+const SuggestedActionsMessage = function(session, text, choices) {
   //first parameter is the prompt text parameters that follow it are the choices
   let choiceArray = [];
   for (let i = 0; i < choices.length; i++) {
-    choiceArray.push(new builder.CardAction.imBack(session, choices[i], choices[i]));
+    choiceArray.push(
+      new builder.CardAction.imBack(session, choices[i], choices[i])
+    );
   }
 
   let message;
-  if (text) { // if text exists
+  if (text) {
+    // if text exists
     message = new builder.Message(session)
       .text(text)
       .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
   } else {
-    message = new builder.Message(session)
-      .suggestedActions(builder.SuggestedActions.create(session, choiceArray));
+    message = new builder.Message(session).suggestedActions(
+      builder.SuggestedActions.create(session, choiceArray)
+    );
   }
   return message;
-}
+};
 
-const Levenshtein_Distance = function (str1, str2) {
+const Levenshtein_Distance = function(str1, str2) {
   if (str1.length == 0) {
     return str2.length;
   } else if (str2.length == 0) {
@@ -46,19 +50,16 @@ const Levenshtein_Distance = function (str1, str2) {
     for (let j = 1; j <= str2.length; j++) {
       let substitutionCost = str1.charAt(i - 1) == str2.charAt(j - 1) ? 0 : 1;
       matrix[i][j] = Math.min(
-        Math.min(
-          matrix[i - 1][j] + 1,
-          matrix[i][j - 1] + 1
-        ),
+        Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1),
         matrix[i - 1][j - 1] + substitutionCost
       );
     }
   }
 
   return matrix[str1.length][str2.length];
-}
+};
 
-const GetClosestMatch = function (choiceList, userInput) {
+const GetClosestMatch = function(choiceList, userInput) {
   let closetMatch = choiceList[0];
   let minimalEditDistance = userInput.length;
   for (let choice of choiceList) {
@@ -69,7 +70,7 @@ const GetClosestMatch = function (choiceList, userInput) {
     }
   }
   return closetMatch;
-}
+};
 
 module.exports.Levenshtein_Distance = Levenshtein_Distance;
 module.exports.GetClosestMatch = GetClosestMatch;
