@@ -1,22 +1,22 @@
-const builder = require("botbuilder");
-const SuggestedActionsMessage = require("./Util").SuggestedActionsMessage;
+const builder = require('botbuilder');
+const SuggestedActionsMessage = require('./Util').SuggestedActionsMessage;
 
 module.exports = [
   (session, args, next) => {
     let thumbnailCard = new builder.ThumbnailCard(session)
-      .subtitle("The bio and information about GPB")
+      .subtitle('The bio and information about GPB')
       .buttons([
-        builder.CardAction.postBack(session, "bio", "know GPB bio"),
-        builder.CardAction.postBack(session, "info", "know GPB tradition")
+        builder.CardAction.postBack(session, 'bio', 'know GPB bio'),
+        builder.CardAction.postBack(session, 'info', 'know GPB tradition')
       ]);
     let message = new builder.Message(session).addAttachment(thumbnailCard);
-    let choices = ["bio", "info"];
+    let choices = ['bio', 'info'];
     builder.Prompts.choice(session, message, choices);
   },
   (session, results, next) => {
-    if (results.response.entity == "bio") {
+    if (results.response.entity == 'bio') {
       let thumbnailCard = new builder.ThumbnailCard(session).title(
-        "George P. Burdell Bio"
+        'George P. Burdell Bio'
       )
         .subtitle(`George P. Burdell is a fictitious student officially enrolled at Georgia Tech in 1927 as a practical joke. 
         Since then, he has supposedly received all undergraduate degrees offered by Georgia Tech, served in the military, 
@@ -25,9 +25,9 @@ module.exports = [
         and notorious campus tradition; all Georgia Tech students learn about him at orientation.`);
       let message = new builder.Message(session).addAttachment(thumbnailCard);
       session.send(message);
-    } else if (results.response.entity == "info") {
+    } else if (results.response.entity == 'info') {
       let thumbnailCard = new builder.ThumbnailCard(session).title(
-        "GT tradition"
+        'GT tradition'
       )
         .subtitle(`Burdell is a campus icon at Georgia Tech, and incoming freshmen are introduced to him as one of the greatest 
         alumni to graduate from the school. George P. Burdell is often paged over the public address system during football games 
@@ -40,6 +40,6 @@ module.exports = [
       session.send(message);
     }
     session.endDialog();
-    session.beginDialog("Hi");
+    session.beginDialog('Hi');
   }
 ];

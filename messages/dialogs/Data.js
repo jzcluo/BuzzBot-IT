@@ -1,6 +1,3 @@
-// const Data = {
-//     db : {}
-// };
 module.exports.Data = {
   conversationData: {}
 };

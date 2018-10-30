@@ -1,7 +1,7 @@
-const builder = require("botbuilder");
+const builder = require('botbuilder');
 
 module.exports.ConversationLog = {
-  log: ""
+  log: ''
 };
 
 const SuggestedActionsMessage = function(session, text, choices) {

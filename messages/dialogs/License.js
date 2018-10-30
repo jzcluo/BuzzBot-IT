@@ -1,11 +1,11 @@
-const builder = require("botbuilder");
-const LICENSEACTION = require("./Enums").LICENSEACTION;
-const LICENSETYPE = require("./Enums").LICENSETYPE;
+const builder = require('botbuilder');
+const LICENSEACTION = require('./Enums').LICENSEACTION;
+const LICENSETYPE = require('./Enums').LICENSETYPE;
 
-const Levenshtein_Distance = require("./Util").Levenshtein_Distance;
-const GetClosestMatch = require("./Util").GetClosestMatch;
+const Levenshtein_Distance = require('./Util').Levenshtein_Distance;
+const GetClosestMatch = require('./Util').GetClosestMatch;
 
-const Data = require("./Data").Data;
+const Data = require('./Data').Data;
 
 module.exports.LicensingDialog = [
   (session, args, next) => {
@@ -18,14 +18,14 @@ module.exports.LicensingDialog = [
       for (let entityObject of args.intent.entities) {
         console.log(entityObject.type);
         switch (entityObject.type) {
-          case "LicenseAction":
+          case 'LicenseAction':
             Data.LicenseAction = GetClosestMatch(
               Object.keys(LICENSEACTION),
               entityObject.entity
             );
             session.save();
             break;
-          case "LicenseType":
+          case 'LicenseType':
             Data.LicenseType = GetClosestMatch(
               Object.keys(LICENSETYPE),
               entityObject.entity
@@ -34,45 +34,44 @@ module.exports.LicensingDialog = [
             break;
         }
       }
-      //it has to be individual license because only individual license has reactivation and deactivation process
       if (
-        Data.LicenseAction == "Deactivation" ||
-        Data.LicenseAction == "Reactivation"
+        Data.LicenseAction == 'Deactivation' ||
+        Data.LicenseAction == 'Reactivation'
       ) {
-        Data.LicenseType = "Individual";
+        Data.LicenseType = 'Individual';
       }
     }
     next();
   },
   (session, results, next) => {
-    if (typeof Data.LicenseType === "undefined") {
-      session.beginDialog("GetLicenseType");
+    if (typeof Data.LicenseType === 'undefined') {
+      session.beginDialog('GetLicenseType');
     }
     next();
   },
   (session, results, next) => {
-    if (Data.LicenseType == "Network") {
-      session.beginDialog("GetNetworkLicense");
-    } else if (typeof Data.LicenseAction === "undefined") {
-      session.beginDialog("GetLicenseAction");
+    if (Data.LicenseType == 'Network') {
+      session.beginDialog('GetNetworkLicense');
+    } else if (typeof Data.LicenseAction === 'undefined') {
+      session.beginDialog('GetLicenseAction');
     }
     next();
   },
   (session, results, next) => {
-    if (Data.LicenseAction == "Activation") {
-      session.beginDialog("ActivateLicense");
-    } else if (Data.LicenseAction == "Deactivation") {
-      session.beginDialog("DeactivateLicense");
+    if (Data.LicenseAction == 'Activation') {
+      session.beginDialog('ActivateLicense');
+    } else if (Data.LicenseAction == 'Deactivation') {
+      session.beginDialog('DeactivateLicense');
     } else {
-      session.beginDialog("WhetherLicenseExpired");
+      session.beginDialog('WhetherLicenseExpired');
       next();
     }
   },
   (session, results) => {
-    if (Data.LicenseExpired == "Yes") {
-      session.beginDialog("ReactivateExpiredLicense");
+    if (Data.LicenseExpired == 'Yes') {
+      session.beginDialog('ReactivateExpiredLicense');
     } else {
-      session.beginDialog("ReactivateExpiringLicense");
+      session.beginDialog('ReactivateExpiringLicense');
     }
   }
 ];

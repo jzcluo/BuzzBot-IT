@@ -1,12 +1,12 @@
 /*
 Dialog to get Network license (for office desktop, lab workstation, classroom, server or a computer lab)
 */
-const builder = require("botbuilder");
-const SuggestedActionsMessage = require("../Util").SuggestedActionsMessage;
+const builder = require('botbuilder');
+const SuggestedActionsMessage = require('../Util').SuggestedActionsMessage;
 
 module.exports.GetNetworkLicense = [
   (session, args) => {
-    let choiceList = ["Yes", "No"];
+    let choiceList = ['Yes', 'No'];
     let suggestedActions = SuggestedActionsMessage(
       session,
       "Let's help you get network license!",
@@ -15,21 +15,21 @@ module.exports.GetNetworkLicense = [
     builder.Prompts.choice(session, suggestedActions, choiceList);
   },
   (session, results, next) => {
-    if (results.response.entity == "Yes") {
+    if (results.response.entity == 'Yes') {
       next();
     } else {
-      session.endDialog("Sorry about that");
-      session.beginDialog("Hi");
+      session.endDialog('Sorry about that');
+      session.beginDialog('Hi');
     }
   },
   (session, results, next) => {
     session.send(
       ` First you need to be on a Georgia Tech owned machine that can talk to the campus license server. Typically, this means the system is on the Georgia Tech network in an office or lab or on the campus VPN.`
     );
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -41,31 +41,31 @@ module.exports.GetNetworkLicense = [
       new builder.HeroCard(session).buttons([
         builder.CardAction.openUrl(
           session,
-          "software.oit.gatech.edu",
-          "Matlab installer page"
+          'software.oit.gatech.edu',
+          'Matlab installer page'
         )
       ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue? More details on files to install in next step",
+      'Continue? More details on files to install in next step',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
   },
   (session, results, next) => {
     session.send(
-      "The ISO image files corresponding to the Windows platform: R2017b_win64_dvd1.iso R2017b_win64_dvd2.iso"
+      'The ISO image files corresponding to the Windows platform: R2017b_win64_dvd1.iso R2017b_win64_dvd2.iso'
     );
     session.send(
-      "The file called license.dat. This file is required during the installation process. It is highly recommended that this file be downloaded prior to the installation. Once done you will need to extract the zip file."
+      'The file called license.dat. This file is required during the installation process. It is highly recommended that this file be downloaded prior to the installation. Once done you will need to extract the zip file.'
     );
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -79,15 +79,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step2.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step2.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -101,15 +101,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step3.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step3.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -121,15 +121,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step4.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step4.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -143,15 +143,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step5.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step5.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -165,15 +165,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step6.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step6.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -187,15 +187,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step7.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step7.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -209,15 +209,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step8.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step8.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -231,15 +231,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step9.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step9.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -251,15 +251,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step10.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step10.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -275,7 +275,7 @@ module.exports.GetNetworkLicense = [
           .images([
             builder.CardImage.create(
               session,
-              "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step11.png"
+              'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step11.png'
             )
           ]),
         new builder.HeroCard(session)
@@ -290,10 +290,10 @@ module.exports.GetNetworkLicense = [
           ])
       ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -307,15 +307,15 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step12.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step12.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Next Step", "Help"];
+    let choiceList = ['Next Step', 'Help'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Continue?",
+      'Continue?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -327,46 +327,46 @@ module.exports.GetNetworkLicense = [
         .images([
           builder.CardImage.create(
             session,
-            "http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step13.png"
+            'http://buzzbot-it.gatech.edu/wp-content/uploads/sites/677/2018/03/Step13.png'
           )
         ])
     ]);
     session.send(herocards);
-    let choiceList = ["Finish"];
+    let choiceList = ['Finish'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "This is the last step of the network license installation process",
+      'This is the last step of the network license installation process',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
   },
   (session, results, next) => {
-    let choiceList = ["Yes", "No"];
+    let choiceList = ['Yes', 'No'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      "Did that solve your problem?",
+      'Did that solve your problem?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
   },
   (session, results, next) => {
-    if (results.response.entity == "Yes") {
+    if (results.response.entity == 'Yes') {
       session.endConversation("I'm glad I helped~");
     } else {
       let card = new builder.HeroCard(session)
         .text(
-          "Please contact MathWorks support. For emergency, you could use MATLAB online."
+          'Please contact MathWorks support. For emergency, you could use MATLAB online.'
         )
         .buttons([
           builder.CardAction.openUrl(
             session,
-            "https://www.mathworks.com/support/contact_us.html?s_tid=sp_ban_cs",
-            "MathWorks Support Page"
+            'https://www.mathworks.com/support/contact_us.html?s_tid=sp_ban_cs',
+            'MathWorks Support Page'
           ),
           builder.CardAction.openUrl(
             session,
-            "https://www.mathworks.com/products/matlab-online.html",
-            "Matlab online"
+            'https://www.mathworks.com/products/matlab-online.html',
+            'Matlab online'
           )
         ]);
       let message = new builder.Message(session).addAttachment(card);
