@@ -1,8 +1,8 @@
 const builder = require('botbuilder');
-const OS = require('../Enums.js').OPERATINGSYSTEM;
+const OS = require('../Enums').OPERATINGSYSTEM;
 
 //To start a dialog, look up the dialog name with the type of OS
-const InstallPythonDialogs = {
+const PythonDialogs = {
   [OS.Windows]: 'InstallPython_Windows',
   [OS.MacOS]: 'InstallPython_Mac',
   [OS.Linux]: 'InstallPython_Linux'
@@ -15,13 +15,11 @@ module.exports.InstallPython = [
     if (typeof session.userData.OS === 'undefined') {
       session.beginDialog('GetOSInfo');
     } else {
-      //if already have userdata then start corresponding dialog
       next();
     }
   },
   (session, results, next) => {
-    //starts the dialog that corresponds to the user's operating system
-    session.beginDialog(InstallPythonDialogs[session.userData.OS]);
+    session.beginDialog(PythonDialogs[session.userData.OS]);
   }
 ];
 

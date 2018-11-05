@@ -108,6 +108,7 @@ const DeactivateLicense = require('./dialogs/License/IndividualLicense/Deactivat
 const CreateAccount = require('./dialogs/License/IndividualLicense/CreateMathWorksAccount');
 
 const GetUserInfoDialog = require('./dialogs/GetUserInfo');
+const ResetPwdDialog = require('./dialogs/ResetPwd');
 const EmailLog = require('./dialogs/Email');
 
 bot.dialog('Email', EmailLog.SendEmail).triggerAction({
@@ -141,7 +142,6 @@ bot.on('conversationUpdate', message => {
 });
 
 bot.dialog('Back', BackDialog);
-
 bot.dialog('Installation', InstallaionDialog.InstallationDialog).triggerAction({
   matches: 'Installation'
 });
@@ -215,13 +215,14 @@ bot.dialog('GeorgePBurdell', GeorgePBurdellDialog).triggerAction({
   matches: 'George'
 });
 
+bot.dialog('ResetPassword', ResetPwdDialog).triggerAction({
+  matches: 'reset_pwd'
+});
+
 //cancel dialog that returns to the dialog before current dialog
 bot
   .dialog('Cancel', [
     session => {
-      //these two fields will be defined in every dialog
-      //when user wants to cancel their currentDialog
-      //start the last dialog
       session.cancelDialog(0, 'Hi'); //later the second parameter could be replaced with Data.lastDialog
     }
   ])
