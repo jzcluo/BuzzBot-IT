@@ -5,13 +5,15 @@ const ConversationLog = require('./Util').ConversationLog;
 module.exports.SendEmail = [
   (session, args, next) => {
     //sendIssueLog(session);
-    session.endDialog("Sorry about that. I have sent this conversation log to my boss.");
+    session.endDialog(
+      'Sorry about that. I have sent this conversation log to my boss.'
+    );
   }
 ];
 
-const sendIssueLog = function (session) {
+const sendIssueLog = function(session) {
   let transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
+    host: 'smtp-mail.outlook.com',
     secureConnection: false,
     port: 587,
     tls: {
@@ -37,7 +39,7 @@ const sendIssueLog = function (session) {
   };
   ConversationLog.log = '';
 
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
       console.log(error);
     }

@@ -19,18 +19,26 @@ module.exports.LicensingDialog = [
         console.log(entityObject.type);
         switch (entityObject.type) {
           case 'LicenseAction':
-            Data.LicenseAction = GetClosestMatch(Object.keys(LICENSEACTION), entityObject.entity);
+            Data.LicenseAction = GetClosestMatch(
+              Object.keys(LICENSEACTION),
+              entityObject.entity
+            );
             session.save();
             break;
           case 'LicenseType':
-            Data.LicenseType = GetClosestMatch(Object.keys(LICENSETYPE), entityObject.entity);
+            Data.LicenseType = GetClosestMatch(
+              Object.keys(LICENSETYPE),
+              entityObject.entity
+            );
             session.save();
             break;
         }
       }
-      //it has to be individual license because only individual license has reactivation and deactivation process
-      if (Data.LicenseAction == "Deactivation" || Data.LicenseAction == "Reactivation") {
-        Data.LicenseType = "Individual";
+      if (
+        Data.LicenseAction == 'Deactivation' ||
+        Data.LicenseAction == 'Reactivation'
+      ) {
+        Data.LicenseType = 'Individual';
       }
     }
     next();
@@ -42,7 +50,7 @@ module.exports.LicensingDialog = [
     next();
   },
   (session, results, next) => {
-    if (Data.LicenseType == "Network") {
+    if (Data.LicenseType == 'Network') {
       session.beginDialog('GetNetworkLicense');
     } else if (typeof Data.LicenseAction === 'undefined') {
       session.beginDialog('GetLicenseAction');
@@ -50,20 +58,20 @@ module.exports.LicensingDialog = [
     next();
   },
   (session, results, next) => {
-    if (Data.LicenseAction == "Activation") {
-      session.beginDialog("ActivateLicense");
-    } else if (Data.LicenseAction == "Deactivation") {
-      session.beginDialog("DeactivateLicense");
+    if (Data.LicenseAction == 'Activation') {
+      session.beginDialog('ActivateLicense');
+    } else if (Data.LicenseAction == 'Deactivation') {
+      session.beginDialog('DeactivateLicense');
     } else {
-      session.beginDialog("WhetherLicenseExpired");
+      session.beginDialog('WhetherLicenseExpired');
       next();
     }
   },
   (session, results) => {
-    if (Data.LicenseExpired == "Yes") {
-      session.beginDialog("ReactivateExpiredLicense");
+    if (Data.LicenseExpired == 'Yes') {
+      session.beginDialog('ReactivateExpiredLicense');
     } else {
-      session.beginDialog("ReactivateExpiringLicense");
+      session.beginDialog('ReactivateExpiringLicense');
     }
   }
-]
+];
