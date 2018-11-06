@@ -3,11 +3,10 @@ const SuggestedActionsMessage = require('./Util').SuggestedActionsMessage;
 
 module.exports = [
   (session, args, next) => {
-    session.send('Do you know your previous password?');
     let choiceList = ['Yes', 'No'];
     let suggestedActions = SuggestedActionsMessage(
       session,
-      'Continue?',
+      'Do you know your previous password?',
       choiceList
     );
     builder.Prompts.choice(session, suggestedActions, choiceList);
@@ -17,15 +16,43 @@ module.exports = [
       session.send(
         'please visit https://passport.gatech.edu to reset your password'
       );
+      session.dialogData.known_pwd = 'Yes';
+      next();
     } else if (results.response.entity === 'No') {
       session.send(
         'Please visit https://passport.gatech.edu/activation/forgot-password to reset your password'
       );
+      session.dialogData.known_pwd = 'No';
+      next();
     }
-    next();
   },
   (session, results, next) => {
-    session.endDialog('Thanks');
-    session.beginDialog('Hi');
+    let choiceList = ['Yes', 'No'];
+    let suggestedActions = SuggestedActionsMessage(
+      session,
+      'Do you need further help?',
+      choiceList
+    );
+    builder.Prompts.choice(session, suggestedActions, choiceList);
+  },
+  (session, results, next) => {
+    if (results.response.entity === 'Yes') {
+      if (session.dialogData.known_pwd == 'Yes') {
+        session.send(
+          `Given condition ${
+            session.dialogData.known_pwd
+          } This function is not yet implemented`
+        );
+      } else {
+        session.send(
+          `Given condition ${
+            session.dialogData.known_pwd
+          } This function is not yet implemented`
+        );
+        session.send('This function is not yet implemented');
+      }
+    } else {
+      session.endDialog();
+    }
   }
 ];
